@@ -1,0 +1,29 @@
+#include "GUI\defines.hpp"
+#include "GUI\controls.hpp"
+
+respawnOnStart = -1;
+
+class CfgNotifications
+{
+	class markerReached
+	{
+		title = "MARKER REACHED";
+		iconPicture = "\A3\ui_f\data\Map\Diary\Icons\taskSucceeded_ca.paa";
+		description = "Marker reached.  Good job!";
+		duration = 7;
+		priority = 7;
+	};
+};
+
+class CfgFunctions
+{
+	class Co2T
+	{
+		class vehiclePool
+		{
+			file = "Functions";
+			class vehSpawn {}; // Co2T_fnc_vehSpawn
+			class vehPoolDialogCreate {}; // Co2T_fnc_vehPoolDialogCreate
+		};
+	};
+};

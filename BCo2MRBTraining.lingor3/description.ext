@@ -27,3 +27,20 @@ class CfgFunctions
 		};
 	};
 };
+
+class CfgVehicles
+{
+	class Man;
+	class CAManBase: Man
+	{
+		class ACE_SelfActions
+		{
+			class test
+			{
+				displayName = "test";
+				condition = "true";
+				statement = "hint 'testarooooooo'";
+			};
+		};
+	};
+};

@@ -12,9 +12,9 @@ private _positions = [];
 _players = nearestObjects [rogaineArea, ["Man"], 4];
 
 for [{private _i = 0}, {_i < 11}, {_i = _i + 1}] do {
-	_positions pushBack ([srt_rogain, 0, 1500, 0, 0, 0.3] call BIS_fnc_findSafePos);
+	_positions pushBack ([srt_rogain, 0, 1250, 0, 0, 0.3] call BIS_fnc_findSafePos);
 	while {if (_i == 0) exitWith {false}; (_positions select _i) distance (_positions select (_i - 1)) > 1000} do {
-		_positions set [_i, ([srt_rogain, 0, 1500, 0, 0, 0.3] call BIS_fnc_findSafePos)];
+		_positions set [_i, ([srt_rogain, 0, 1250, 0, 0, 0.3] call BIS_fnc_findSafePos)];
 	};
 };
 private _pos = createVehicle ["FlagSmall_F", (_positions select 0)];
@@ -41,8 +41,8 @@ createMarker ["_posMarker", _positions select 0, 0];
 "_posMarker" setMarkerText "Position 0";
 
 for [{private _i = 1}, {_i < 11}, {_i = _i + 1}] do {
-	waitUntil {{(_x distance _pos) < 4} forEach _players || {_x inArea t_rogaine} count _players == 0};
-	if ({_x inArea t_rogaine} count _players == 0) exitWith {};
+	waitUntil {{(_x distance _pos) < 4} forEach _players || {_x inArea t_trainingIsland} count _players == 0};
+	if ({_x inArea t_trainingIsland} count _players == 0) exitWith {};
 	{["markerReached", []] call BIS_fnc_showNotification} forEach _players;
 	deleteVehicle _pos;
 	deleteMarker "_posMarker";
@@ -69,10 +69,10 @@ for [{private _i = 1}, {_i < 11}, {_i = _i + 1}] do {
 	};
 };
 
-waitUntil {{(_x distance _pos) < 4} forEach _players || {_x inArea t_rogaine} count _players == 0};
+waitUntil {{(_x distance _pos) < 4} forEach _players || {_x inArea t_trainingIsland} count _players == 0};
 deleteVehicle _pos;
 deleteMarker "_posMarker";
-if ({_x inArea t_rogaine} count _players == 0) then {
+if ({_x inArea t_trainingIsland} count _players == 0) then {
 	("Land nav course stopped.") remoteExec ["systemChat", 0];
 } else {
 	{_x setPosATL getPosATL (rogaineInterface)} forEach _players;

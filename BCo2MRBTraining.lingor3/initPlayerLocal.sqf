@@ -16,6 +16,9 @@ _start = ["start_root", "Start Shoot Houses", "", {}, {true}] call ace_interact_
 _startPit = ["start_pit", "Start The Pit", "", {location = pitSpawn; publicVariable "location"; ["scripts\shootHouse.sqf"] remoteExec ["execVM", 2];}, {!(pitSpawn getVariable "inProgress")}] call ace_interact_menu_fnc_createAction;
 [startInterface, 0, ["ACE_MainActions", "start_root"], _startPit, true] call ace_interact_menu_fnc_addActionToObject;
 
+_startConsulate = ["start_consulate", "Start Consulate", "", {location = consulateSpawn; publicVariable "location"; ["scripts\shootHouse.sqf"] remoteExec ["execVM", 2];}, {!(consulateSpawn getVariable "inProgress")}] call ace_interact_menu_fnc_createAction;
+[startInterface, 0, ["ACE_MainActions", "start_root"], _startConsulate, true] call ace_interact_menu_fnc_addActionToObject;
+
 _startSH1 = ["start_sh1", "Start Shoot House 1", "", {location = sh1Spawn; publicVariable "location"; ["scripts\shootHouse.sqf"] remoteExec ["execVM", 2];}, {!(sh1Spawn getVariable "inProgress")}] call ace_interact_menu_fnc_createAction;
 [startInterface, 0, ["ACE_MainActions", "start_root"], _startSH1, true] call ace_interact_menu_fnc_addActionToObject;
 
@@ -24,7 +27,7 @@ _startSH2 = ["start_sh2", "Start Shoot House 2", "", {location = sh2Spawn; publi
 
 _return = ["return", "Return to Base", "", {_player setPosATL (getPosATL startArea); [objNull, _player] call ace_medical_treatment_fnc_fullHeal;}, {true}] call ace_interact_menu_fnc_createAction;
 {[_x, 0, ["ACE_MainActions"], _return, true] call ace_interact_menu_fnc_addActionToObject;} forEach shootHousePlayerInterfaces;
-
+/*
 //=============Shoothouse Spectator Actions=============\\
 _spectate = ["spectate_root", "Spectate", "", {}, {true}] call ace_interact_menu_fnc_createAction;
 {[_x, 0, ["ACE_MainActions"], _spectate, true] call ace_interact_menu_fnc_addActionToObject;} forEach shootHouseSpectatorInterfaces;
@@ -59,52 +62,7 @@ _spectateSH2West = ["spectate_SH2_west", "West", "", {_player setCaptive true; _
 _spectateReturn = ["spectate_return", "Return to Base", "", {_player setCaptive false; _player allowDamage true; _player setPosATL (getPosATL spectateInterface)}, {true}] call ace_interact_menu_fnc_createAction;
 {[_x, 0, ["ACE_MainActions", "spectate_root"], _spectateReturn, true] call ace_interact_menu_fnc_addActionToObject;} forEach shootHouseSpectatorInterfaces - [spectateInterface];
 
-
-//=============Formations Actions=============\\
-formationsHideFunction = {{hideObject _x} forEach ((getMissionLayerEntities "Wedge") select 0) + ((getMissionLayerEntities "Line") select 0) + ((getMissionLayerEntities "Column/File") select 0) + ((getMissionLayerEntities "Staggered Column") select 0)};
-formationsHideFunction remoteExec ["call", 0, true];
-
-_toFormation = ["to_formation", "Teleport to Formations Area", "", {_player setPosATL (getPosATL formationControl)}, {true}] call ace_interact_menu_fnc_createAction;
-[formationInterface, 0, ["ACE_MainActions"], _toFormation, true] call ace_interact_menu_fnc_addActionToObject;
-
-_formation = ["formation_root", "Formations Control", "", {}, {true}] call ace_interact_menu_fnc_createAction;
-{[_x, 0, ["ACE_MainActions"], _formation, true] call ace_interact_menu_fnc_addActionToObject} forEach formationControllers;
-
-_formationHide = ["formation_hide", "Hide", "", {formationsHideFunction remoteExec ["call", 0, true]}, {true}] call ace_interact_menu_fnc_createAction;
-{[_x, 0, ["ACE_MainActions", "formation_root"], _formationHide, true] call ace_interact_menu_fnc_addActionToObject} forEach formationControllers;
-
-_wedge = ["formation_wedge", "Wedge", "", {
-	formationsHideFunction remoteExec ["call", 0, true];
-
-	{{_x hideObject false} forEach ((getMissionLayerEntities "Wedge") select 0)} remoteExec ["call", 0, true];
-}, {true}] call ace_interact_menu_fnc_createAction;
-{[_x, 0, ["ACE_MainActions", "formation_root"], _wedge, true] call ace_interact_menu_fnc_addActionToObject} forEach formationControllers;
-
-_line = ["formation_line", "Line", "", {
-	formationsHideFunction remoteExec ["call", 0, true];
-
-	{{_x hideObject false} forEach ((getMissionLayerEntities "Line") select 0)} remoteExec ["call", 0, true];
-}, {true}] call ace_interact_menu_fnc_createAction;
-{[_x, 0, ["ACE_MainActions", "formation_root"], _line, true] call ace_interact_menu_fnc_addActionToObject} forEach formationControllers;
-
-_column = ["formation_column", "Column/File", "", {
-	formationsHideFunction remoteExec ["call", 0, true];
-
-	{{_x hideObject false} forEach ((getMissionLayerEntities "Column/File") select 0)} remoteExec ["call", 0, true];
-}, {true}] call ace_interact_menu_fnc_createAction;
-{[_x, 0, ["ACE_MainActions", "formation_root"], _column, true] call ace_interact_menu_fnc_addActionToObject} forEach formationControllers;
-
-_staggeredColumn = ["formation_staggeredColumn", "Staggered Column", "", {
-	formationsHideFunction remoteExec ["call", 0, true];
-
-	{{_x hideObject false} forEach ((getMissionLayerEntities "Staggered Column") select 0)} remoteExec ["call", 0, true];
-}, {true}] call ace_interact_menu_fnc_createAction;
-{[_x, 0, ["ACE_MainActions", "formation_root"], _staggeredColumn, true] call ace_interact_menu_fnc_addActionToObject} forEach formationControllers;
-
-_formationReturn = ["formation_return", "Return to Base", "", {_player setPosATL (getPosATL formationInterface)}, {true}] call ace_interact_menu_fnc_createAction;
-[formationControl, 0, ["ACE_MainActions"], _formationReturn, true] call ace_interact_menu_fnc_addActionToObject;
-
-//=============Rogaining Actions=============\\
+*///=============Rogaining Actions=============\\
 _rogain = ["rogain_root", "Rogaining", "", {}, {true}] call ace_interact_menu_fnc_createAction;
 [rogaineInterface, 0, ["ACE_MainActions"], _rogain, true] call ace_interact_menu_fnc_addActionToObject;
 
@@ -123,7 +81,7 @@ _difficultyNormal = ["difficulty_normal", "Normal", "", {diff = "Normal"; public
 _difficultyHard = ["difficulty_normal", "Hard", "", {diff = "Hard"; publicVariable "diff";}, {true}] call ace_interact_menu_fnc_createAction;
 [rogaineInterface, 0, ["ACE_MainActions", "rogain_root", "difficulty_root"], _difficultyHard, true] call ace_interact_menu_fnc_addActionToObject;
 
-//=============50-150 Shooting Range Actions=============\\
+/*//=============50-150 Shooting Range Actions=============\\
 rangeHideLeftFunction = {{hideObject _x} forEach ((getMissionLayerEntities "LeftClose") select 0) + ((getMissionLayerEntities "LeftMedium") select 0) + ((getMissionLayerEntities "LeftFar") select 0)};
 rangeHideMiddleFunction = {{hideObject _x} forEach ((getMissionLayerEntities "MiddleClose") select 0) + ((getMissionLayerEntities "MiddleMedium") select 0) + ((getMissionLayerEntities "MiddleFar") select 0)};
 rangeHideRightFunction = {{hideObject _x} forEach ((getMissionLayerEntities "RightClose") select 0) + ((getMissionLayerEntities "RightMedium") select 0) + ((getMissionLayerEntities "RightFar") select 0)};
@@ -258,7 +216,7 @@ _destroyerAirVehiclePool = ["destroyer_airVehiclePool", "Spawn Vehicles", "", {[
 _ATSpawnLandTarget = ["AT_spawn_land_target", "Spawn Land Target", "", {["scripts\MOS\ATLand.sqf"] remoteExec ["execVM", 2];}, {true}] call ace_interact_menu_fnc_createAction;
 [ATRange, 0, ["ACE_MainActions"], _ATSpawnLandTarget, true] call ace_interact_menu_fnc_addActionToObject;
 
-//=============Briefing (how to use)=============\\
+*///=============Briefing (how to use)=============\\
 player createDiarySubject ["areaExp", "Areas Explanation"];
 
 player createDiaryRecord ["Diary", ["Training Map", "This is a general tutorial for all of the things unique to this mission.  An in depth explanation of all areas can be found in the 'Areas Explanation' Tab.<br></br><br></br>The infantry base is located at the Pyrgos military base.  There are connections to the airbase (WIP), aircraft carrier (WIP), and LHD (WIP).  From here, you can access all of the facilities that are offered on the island such as the shoothouse, MOS training areas (WIP), and rogaining course.<br></br>To use any of the display panels, you must use your ACE interaction key (windows key by default), hover over the display panel, and select the option you want.  All display panels will be about chest height on 2 legs with a white display.<br></br><br></br>There are 3 shoothouses, 2 ordinary ones and 1 resembles a city street.  The two ordinary shoothouses are called 'Shoothouse 1' and 'Shoothouse 2,' while the city street is called 'The Pit.'  Both ordinary shoothouses can hold up to 6 players, while The Pit can hold 9.  All of the shoothouses have 2 spectator buildings on either side that can hold as many people as can fit inside.<br></br>The formations area has 11 slots (including the formation leader) for all formations.  It has the wedge, line, column/file, and staggered column formations.<br></br>The rogaining area is a land navigation course with 10 waypoints.  The objective is to navigate you and your team (should you choose to have one) through the entire course.  A checkpoint will never be more than 1 kilometer away from the previous one. It can accommodate as many people as can fit inside of the activation circle.<br></br><br></br>More to come! I hope you enjoy.<br></br><br></br><img image='images\insignia.paa' width='200' height='200'/>"]];

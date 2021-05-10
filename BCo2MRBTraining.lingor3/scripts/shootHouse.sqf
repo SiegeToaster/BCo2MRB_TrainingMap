@@ -13,7 +13,7 @@ private _spawnPoints = (nearestObjects [_location, ["Logic"], 100]) call BIS_fnc
 private _players = nearestObjects [startArea, ["Man"], 4];
 private _enemy = selectRandom ["rhsgref_ins_g_rifleman_akm", "rhsgref_ins_g_rifleman_aks74", "rhsgref_ins_g_rifleman_aksu", "rhssaf_army_m10_digital_rifleman_m21", "rhssaf_army_m10_digital_rifleman_m70"];
 
-if (str _location == "pitSpawn") then {
+if ((str _location == "pitSpawn") || (str _location = "consulateSpawn")) then {
 	_spawnPoints resize ((count _spawnPoints) / 5);
 	_players resize 9;
 } else {

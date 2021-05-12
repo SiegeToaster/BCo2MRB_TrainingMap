@@ -1,6 +1,5 @@
-# B Company, 2nd Marine Raider Battalion
-## TrainingMap
-Training map for B Company, 2nd Marine Raider Battalion ArmA 3 Unit.
+# Bravo Company, 2nd Marine Raider Battalion Training Map
+Training map for the Bravo Company, 2nd Marine Raider Battalion ArmA 3 Unit.
 
 ## Features
 
@@ -17,18 +16,17 @@ Training map for B Company, 2nd Marine Raider Battalion ArmA 3 Unit.
 
 ######
 - [ ] USS Khe Sahn (LHD) Strike Group
-- [ ] Vehicle Garages
+- [x] Vehicle Garages
 - [ ] Firing Range (50-500m) **
 - [ ] Firing Range (500m+) **
-- [ ] Formations Practice
-- [ ] Briefing Area
-- [ ] Maritime Interdiction Course *
-- [ ] CQC Shoothouses **
+- [x] Briefing Area
+- [ ] Maritime Interdiction Scenario *
+- [ ] CQC Shoothouses *
   - [x] Shoothouse 1
   - [x] Shoothouse 2
   - [ ] Shoothouse 3
   - [x] The Pit
-  - [x] Consulate
+  - [ ] Consulate
 - [x] Land Navigation Course (Rogaining)
 
 ###### More * = higher priority
@@ -44,5 +42,16 @@ Training map for B Company, 2nd Marine Raider Battalion ArmA 3 Unit.
 - Shoothouses 1-2, The Pit, and Consulate complete
 - Land Navigation Course (Rogaining) complete
 
+### Version 0.2.1
+- Fixed the bug stopping players from starting the shoothouse or land navigation course.
+- Added Vehicle Pools
+- Cleaned up Layers (Editor)
+	- Removed empty layers
+	- Renamed layers
+	- Changed what objects are in what layers
+- Added group names to player groups.
+- Moved all scripts to the Functions Library (Optimization)
+- Added ORBAT
+- Updated Briefing
 
-**NOTE: Currently, there is no way to start the shoothouses or the land navigation course.  This will be added in a later patch.**
+**NOTE: The Consulate Shoothouse no longer works.  However, all of the others do.**

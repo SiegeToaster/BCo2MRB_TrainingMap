@@ -1,4 +1,5 @@
-waitUntil {!isNil "formationControllers" && !isNil "shootHousePlayerInterfaces" && !isNil "shootHouseSpectatorInterfaces" && !isNil "shootingRangeTargets" && !isNil "MOSTrainingInterfaces"};
+waitUntil {!isNil "shootHousePlayerInterfaces"};
+// deleted vars: "shootHouseSpectatorInterfaces", "formationControllers",  "shootingRangeTargets", "MOSTrainingInterfaces",
 
 //=============Player Variables=============\\
 
@@ -13,16 +14,16 @@ player setVariable ["customLoadout", false];
 _start = ["start_root", "Start Shoot Houses", "", {}, {true}] call ace_interact_menu_fnc_createAction;
 [startInterface, 0, ["ACE_MainActions"], _start, true] call ace_interact_menu_fnc_addActionToObject;
 
-_startPit = ["start_pit", "Start The Pit", "", {location = pitSpawn; publicVariable "location"; ["scripts\shootHouse.sqf"] remoteExec ["execVM", 2];}, {!(pitSpawn getVariable "inProgress")}] call ace_interact_menu_fnc_createAction;
+_startPit = ["start_pit", "Start The Pit", "", {[pitSpawn] remoteExec ["Co2T_fnc_shootHouse", 2];}, {!(pitSpawn getVariable "inProgress")}] call ace_interact_menu_fnc_createAction;
 [startInterface, 0, ["ACE_MainActions", "start_root"], _startPit, true] call ace_interact_menu_fnc_addActionToObject;
 
-_startConsulate = ["start_consulate", "Start Consulate", "", {location = consulateSpawn; publicVariable "location"; ["scripts\shootHouse.sqf"] remoteExec ["execVM", 2];}, {!(consulateSpawn getVariable "inProgress")}] call ace_interact_menu_fnc_createAction;
-[startInterface, 0, ["ACE_MainActions", "start_root"], _startConsulate, true] call ace_interact_menu_fnc_addActionToObject;
+/*_startConsulate = ["start_consulate", "Start Consulate", "", {[consulateSpawn] remoteExec ["Co2T_fnc_shootHouse", 2]}, {!(consulateSpawn getVariable "inProgress")}] call ace_interact_menu_fnc_createAction;
+[startInterface, 0, ["ACE_MainActions", "start_root"], _startConsulate, true] call ace_interact_menu_fnc_addActionToObject;*/
 
-_startSH1 = ["start_sh1", "Start Shoot House 1", "", {location = sh1Spawn; publicVariable "location"; ["scripts\shootHouse.sqf"] remoteExec ["execVM", 2];}, {!(sh1Spawn getVariable "inProgress")}] call ace_interact_menu_fnc_createAction;
+_startSH1 = ["start_sh1", "Start Shoot House 1", "", {[sh1Spawn] remoteExec ["Co2T_fnc_shootHouse", 2]}, {!(sh1Spawn getVariable "inProgress")}] call ace_interact_menu_fnc_createAction;
 [startInterface, 0, ["ACE_MainActions", "start_root"], _startSH1, true] call ace_interact_menu_fnc_addActionToObject;
 
-_startSH2 = ["start_sh2", "Start Shoot House 2", "", {location = sh2Spawn; publicVariable "location"; ["scripts\shootHouse.sqf"] remoteExec ["execVM", 2];}, {!(sh2Spawn getVariable "inProgress")}] call ace_interact_menu_fnc_createAction;
+_startSH2 = ["start_sh2", "Start Shoot House 2", "", {[sh2Spawn] remoteExec ["Co2T_fnc_shootHouse", 2]}, {!(sh2Spawn getVariable "inProgress")}] call ace_interact_menu_fnc_createAction;
 [startInterface, 0, ["ACE_MainActions", "start_root"], _startSH2, true] call ace_interact_menu_fnc_addActionToObject;
 
 _return = ["return", "Return to Base", "", {_player setPosATL (getPosATL startArea); [objNull, _player] call ace_medical_treatment_fnc_fullHeal;}, {true}] call ace_interact_menu_fnc_createAction;
@@ -66,7 +67,7 @@ _spectateReturn = ["spectate_return", "Return to Base", "", {_player setCaptive 
 _rogain = ["rogain_root", "Rogaining", "", {}, {true}] call ace_interact_menu_fnc_createAction;
 [rogaineInterface, 0, ["ACE_MainActions"], _rogain, true] call ace_interact_menu_fnc_addActionToObject;
 
-_rogainStart = ["rogain_start", "Start", "", {["scripts\rogaining.sqf"] remoteExec ["execVM", 2];}, {!(srt_rogain getVariable "inProgress")}] call ace_interact_menu_fnc_createAction;
+_rogainStart = ["rogain_start", "Start", "", {remoteExec ["Co2T_fnc_rogaining", 2];}, {!(srt_rogain getVariable "inProgress")}] call ace_interact_menu_fnc_createAction;
 [rogaineInterface, 0, ["ACE_MainActions", "rogain_root"], _rogainStart, true] call ace_interact_menu_fnc_addActionToObject;
 
 _difficulty = ["difficulty_root", "Difficulty", "", {}, {!(srt_rogain getVariable "inProgress")}] call ace_interact_menu_fnc_createAction;
@@ -201,24 +202,24 @@ _toMarksman = ["to_Marksman", "Teleport to Marksman Range (WiP!)", "", {_player 
 _MOSReturn = ["MOS_return", "Return to Base", "", {_player setPosATL (getPosATL MOSInterface)}, {true}] call ace_interact_menu_fnc_createAction;
 {[_x, 0, ["ACE_MainActions"], _MOSReturn, true] call ace_interact_menu_fnc_addActionToObject;} forEach MOSTrainingInterfaces;
 
-//=============Vehicle Pools=============\\
-_baseVehiclePool = ["base_vehiclePool", "Spawn Vehicles", "", {[[t_infBaseSpawn1, t_infBaseSpawn2], landVehicles] call Co2T_fnc_vehPoolDialogCreate}, {true}] call ace_interact_menu_fnc_createAction;
-[vehiclePoolInteract, 0, ["ACE_MainActions"], _baseVehiclePool, true] call ace_interact_menu_fnc_addActionToObject;
+*///=============Vehicle Pools=============\\
+_baseVehiclePool = ["base_vehiclePool", "Spawn Vehicles", "", {[[t_landVehicles1, t_landVehicles2, t_landVehicles3], landVehicles] call Co2T_fnc_vehPoolDialogCreate}, {true}] call ace_interact_menu_fnc_createAction;
+[vehicleLandPoolInteract, 0, ["ACE_MainActions"], _baseVehiclePool, true] call ace_interact_menu_fnc_addActionToObject;
 
-_baseAirVehiclePool = ["base_airVehiclePool", "Spawn Vehicles", "", {[[t_infBaseAirSpawn], (smallAviationVehicles + mediumAviationVehicles)] call Co2T_fnc_vehPoolDialogCreate}, {true}] call ace_interact_menu_fnc_createAction;
+_baseHeloVehiclePool = ["base_airVehiclePool", "Spawn Vehicles", "", {[[t_heloVehicles1, t_heloVehicles2, t_heloVehicles3, t_heloVehicles4, t_heloVehicles5, t_heloVehicles6, t_heloVehicles7, t_heloVehicles8], (smallAviationVehicles + mediumAviationVehicles)] call Co2T_fnc_vehPoolDialogCreate}, {true}] call ace_interact_menu_fnc_createAction;
+[vehicleHeloPoolInteract, 0, ["ACE_MainActions"], _baseHeloVehiclePool, true] call ace_interact_menu_fnc_addActionToObject;
+
+_baseAirVehiclePool = ["destroyer_airVehiclePool", "Spawn Vehicles", "", {[[t_airVehicles1, t_airVehicles2, t_airVehicles3, t_airVehicles4], largeAviationVehicles] call Co2T_fnc_vehPoolDialogCreate}, {true}] call ace_interact_menu_fnc_createAction;
 [vehicleAirPoolInteract, 0, ["ACE_MainActions"], _baseAirVehiclePool, true] call ace_interact_menu_fnc_addActionToObject;
 
-_destroyerAirVehiclePool = ["destroyer_airVehiclePool", "Spawn Vehicles", "", {[[t_libertySpawn], smallAviationVehicles] call Co2T_fnc_vehPoolDialogCreate}, {true}] call ace_interact_menu_fnc_createAction;
-[destroyerAirPoolInteract, 0, ["ACE_MainActions"], _destroyerAirVehiclePool, true] call ace_interact_menu_fnc_addActionToObject;
 
-
-//=============MOS-AT Range=============\\
+/*//=============MOS-AT Range=============\\
 _ATSpawnLandTarget = ["AT_spawn_land_target", "Spawn Land Target", "", {["scripts\MOS\ATLand.sqf"] remoteExec ["execVM", 2];}, {true}] call ace_interact_menu_fnc_createAction;
 [ATRange, 0, ["ACE_MainActions"], _ATSpawnLandTarget, true] call ace_interact_menu_fnc_addActionToObject;
 
 *///=============Briefing (how to use)=============\\
 player createDiarySubject ["areaExp", "Areas Explanation"];
 
-player createDiaryRecord ["Diary", ["Training Map", "This is a general tutorial for all of the things unique to this mission.  An in depth explanation of all areas can be found in the 'Areas Explanation' Tab.<br></br><br></br>The infantry base is located at the Pyrgos military base.  There are connections to the airbase (WIP), aircraft carrier (WIP), and LHD (WIP).  From here, you can access all of the facilities that are offered on the island such as the shoothouse, MOS training areas (WIP), and rogaining course.<br></br>To use any of the display panels, you must use your ACE interaction key (windows key by default), hover over the display panel, and select the option you want.  All display panels will be about chest height on 2 legs with a white display.<br></br><br></br>There are 3 shoothouses, 2 ordinary ones and 1 resembles a city street.  The two ordinary shoothouses are called 'Shoothouse 1' and 'Shoothouse 2,' while the city street is called 'The Pit.'  Both ordinary shoothouses can hold up to 6 players, while The Pit can hold 9.  All of the shoothouses have 2 spectator buildings on either side that can hold as many people as can fit inside.<br></br>The formations area has 11 slots (including the formation leader) for all formations.  It has the wedge, line, column/file, and staggered column formations.<br></br>The rogaining area is a land navigation course with 10 waypoints.  The objective is to navigate you and your team (should you choose to have one) through the entire course.  A checkpoint will never be more than 1 kilometer away from the previous one. It can accommodate as many people as can fit inside of the activation circle.<br></br><br></br>More to come! I hope you enjoy.<br></br><br></br><img image='images\insignia.paa' width='200' height='200'/>"]];
+player createDiaryRecord ["Diary", ["Training Map", "Welcome to the Bravo Company, 2nd Marine Raider Battalion training map!"]];
 
 player createDiaryRecord ["areaExp", ["WIP", "This section is work in progress..."]];

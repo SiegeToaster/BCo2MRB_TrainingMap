@@ -1,9 +1,12 @@
 /* Shoothouse script by Siege 
 
 Fills a pre-made shoothouse with AI at pre-designated locations.
+
+Params:
+		0: object, the object corresponding to the shoothouse.  Must have a trigger set as it's varable name "triggerName".
 */
 
-private _location = location;
+params [["_location", sh1Spawn, [sh1Spawn]]];
 private _trigger = _location getVariable "triggerName";
 _location setVariable ["inProgress", true, true];
 private _startTime = time;
@@ -13,12 +16,21 @@ private _spawnPoints = (nearestObjects [_location, ["Logic"], 100]) call BIS_fnc
 private _players = nearestObjects [startArea, ["Man"], 4];
 private _enemy = selectRandom ["rhsgref_ins_g_rifleman_akm", "rhsgref_ins_g_rifleman_aks74", "rhsgref_ins_g_rifleman_aksu", "rhssaf_army_m10_digital_rifleman_m21", "rhssaf_army_m10_digital_rifleman_m70"];
 
-if ((str _location == "pitSpawn") || (str _location = "consulateSpawn")) then {
-	_spawnPoints resize ((count _spawnPoints) / 5);
-	_players resize 9;
-} else {
-	_spawnPoints resize ((count _spawnPoints) / 4);
-	_players resize 6;
+switch (str _location) do {
+	case "sh1Spawn": {
+		_spawnPoints resize ((count _spawnPoints) / 4);
+		_players resize 4;
+	};
+	case "sh2Spawn": {
+		_spawnPoints resize ((count _spawnPoints) / 4);
+		_players resize 6;
+	};
+	case "sh3Spawn": {};
+	case "pitSpawn";
+	case "consulateSpawn": {
+		_spawnPoints resize ((count _spawnPoints) / 5);
+		_players resize 9;
+	};
 };
 
 private _tgts = [];

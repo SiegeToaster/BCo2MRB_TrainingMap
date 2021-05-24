@@ -4,14 +4,15 @@ Creates rogaining minigame in a pre-defined area.  10 markers total that are no 
 */
 
 private _diff = diff;
+private _amount = amount;
 srt_rogain setVariable ["inProgress", true, true];
 private _startTime = time;
 private _positions = [];
 
-("Land nav course starting on " + _diff + " difficulty.") remoteExec ["systemChat", 0];
+("Land nav course starting with " + str _amount + " checkpoints on " + toLower _diff + " difficulty.") remoteExec ["systemChat", 0];
 _players = nearestObjects [rogaineArea, ["Man"], 4];
 
-for [{private _i = 0}, {_i < 11}, {_i = _i + 1}] do {
+for [{private _i = 0}, {_i < (amount + 1)}, {_i = _i + 1}] do {
 	_positions pushBack ([srt_rogain, 0, 1250, 0, 0, 0.3] call BIS_fnc_findSafePos);
 	while {if (_i == 0) exitWith {false}; (_positions select _i) distance (_positions select (_i - 1)) > 1000} do {
 		_positions set [_i, ([srt_rogain, 0, 1250, 0, 0, 0.3] call BIS_fnc_findSafePos)];
@@ -40,14 +41,14 @@ createMarker ["_posMarker", _positions select 0, 0];
 "_posMarker" setMarkerColor "colorIndependent";
 "_posMarker" setMarkerText "Position 0";
 
-for [{private _i = 1}, {_i < 11}, {_i = _i + 1}] do {
+for [{private _i = 1}, {_i < (amount + 1)}, {_i = _i + 1}] do {
 	waitUntil {{(_x distance _pos) < 4} forEach _players || {_x inArea t_trainingIsland} count _players == 0};
 	if ({_x inArea t_trainingIsland} count _players == 0) exitWith {};
 	{["markerReached", []] call BIS_fnc_showNotification} forEach _players;
 	deleteVehicle _pos;
 	deleteMarker "_posMarker";
 	_pos = createVehicle ["FlagSmall_F", (_positions select _i)];
-	if ((_i mod 2) == 1) then {
+	if ((_i % 2) == 1) then {
 		createMarker ["_posMarker", _positions select _i, 0];
 		"_posMarker" setMarkerType "hd_flag";
 		"_posMarker" setMarkerColor "colorIndependent";
@@ -76,7 +77,7 @@ if ({_x inArea t_trainingIsland} count _players == 0) then {
 	("Land nav course stopped.") remoteExec ["systemChat", 0];
 } else {
 	{_x setPosATL getPosATL (rogaineInterface)} forEach _players;
-	("Land nav course finished in " + str (time - _startTime) + " seconds on " + _diff + " difficulty.") remoteExec ["systemChat", 0];
+	("Land nav course finished in " + ([time - _startTime] call Co2T_fnc_timeConvert) + " on " + toLower _diff + " difficulty.") remoteExec ["systemChat", 0];
 };
 
 srt_rogain setVariable ["inProgress", false, true];

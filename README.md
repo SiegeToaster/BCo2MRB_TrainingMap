@@ -17,8 +17,8 @@ Training map for the Bravo Company, 2nd Marine Raider Battalion ArmA 3 Unit.
 ######
 - [ ] USS Khe Sahn (LHD) Strike Group
 - [x] Vehicle Garages
-- [ ] Firing Range (50-500m) **
-- [ ] Firing Range (500m+) **
+- [x] Firing Range (100-400m)
+- [ ] Firing Range (400m+) **
 - [x] Briefing Area
 - [ ] Maritime Interdiction Scenario *
 - [ ] CQC Shoothouses *
@@ -54,4 +54,10 @@ Training map for the Bravo Company, 2nd Marine Raider Battalion ArmA 3 Unit.
 - Added ORBAT
 - Updated Briefing
 
-**NOTE: The Consulate Shoothouse no longer works.  However, all of the others do.**
+### Version 0.2.2
+- Added 100-400 meter firing ranges
+- Updated ORBAT
+- Miscellaneous optimization changes
+- Added the USS Khe Sahn (LHD), USS Liberty (Destroyer), and Cargo Ship (Natural Gas); No interactions, respawns, etc. have been added.
+
+**NOTE: The Consulate Shoothouse does not work.  However, Shoothouse 1, 2, and The Pit do work.**

@@ -17,15 +17,32 @@ class CfgFunctions
 {
 	class Co2T
 	{
+		class unility
+		{
+			file = "Functions";
+			class timeConvert {}; // Co2T_fnc_timeConvert
+		}
+
 		class vehiclePool
 		{
 			file = "Functions";
 			class vehSpawn {}; // Co2T_fnc_vehSpawn
 			class vehPoolDialogCreate {}; // Co2T_fnc_vehPoolDialogCreate
+		};
+
+		class miniGames
+		{
+			file = "Functions";
 			class shootHouse {}; // Co2T_fnc_shootHouse
 			class rogaining {}; // Co2T_fnc_rogaining
+		}
+
+		class training
+		{
+			file = "Functions";
 			class mosATLand {}; // Co2T_fnc_mosATLand
-		};
+			class shootRange {}; // Co2T_fnc_shootRange
+		}
 	};
 };
 
@@ -119,6 +136,22 @@ class CfgORBAT
 			size = "Squadron";
 			type = "Fighter";
 			tags[] = {2C, Aviation};
+			text = "VMA-214";
+			textshort = "VMA-214";
+		};
+
+		class 2A
+		{
+			id = 2;
+			side = "West";
+			size = "Army";
+			type = "Maintenance";
+			commander = "Siege";
+			commanderRank = "General";
+			tags[] = {2C};
+			text = "The Fellowship of the AI and Siege"
+			textShort = "The Fellowship";
+			description = "The Fellowship of the AI and Siege make the training map for BCo2MRB.  As of now, the Fellowship consists of:<br></br>Gen. Siege<br></br>GySgt. Highway<br></br>Https. community.bistudio.com/wiki<br></br>Pvt. Shoothouse Enemy<br></br><br></br><br></br><br></br>The AI are my friends now"
 		};
 	};
 };

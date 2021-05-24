@@ -48,5 +48,5 @@ if (alive _x) then {
 }} forEach _players;
 {deleteVehicle _x} forEach nearestObjects [(getPosATL (_location)), [_enemy], 100];
 
-(str _location + " finished in " + str (time - _startTime) + " seconds.") remoteExec ["systemChat", 0];
+(str _location + " finished in " + ([time - _startTime] call Co2T_fnc_timeConvert) +".") remoteExec ["systemChat", 0];
 _location setVariable ["inProgress", false, true];

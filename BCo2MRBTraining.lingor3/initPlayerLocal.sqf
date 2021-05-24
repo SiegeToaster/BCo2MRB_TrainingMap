@@ -82,94 +82,86 @@ _difficultyNormal = ["difficulty_normal", "Normal", "", {diff = "Normal"; public
 _difficultyHard = ["difficulty_normal", "Hard", "", {diff = "Hard"; publicVariable "diff";}, {true}] call ace_interact_menu_fnc_createAction;
 [rogaineInterface, 0, ["ACE_MainActions", "rogain_root", "difficulty_root"], _difficultyHard, true] call ace_interact_menu_fnc_addActionToObject;
 
-/*//=============50-150 Shooting Range Actions=============\\
-rangeHideLeftFunction = {{hideObject _x} forEach ((getMissionLayerEntities "LeftClose") select 0) + ((getMissionLayerEntities "LeftMedium") select 0) + ((getMissionLayerEntities "LeftFar") select 0)};
-rangeHideMiddleFunction = {{hideObject _x} forEach ((getMissionLayerEntities "MiddleClose") select 0) + ((getMissionLayerEntities "MiddleMedium") select 0) + ((getMissionLayerEntities "MiddleFar") select 0)};
-rangeHideRightFunction = {{hideObject _x} forEach ((getMissionLayerEntities "RightClose") select 0) + ((getMissionLayerEntities "RightMedium") select 0) + ((getMissionLayerEntities "RightFar") select 0)};
-{_x remoteExec ["call", 0, true];} forEach [rangeHideLeftFunction, rangeHideMiddleFunction, rangeHideRightFunction];
+_amount = ["amount_root", "Number of Checkpoints", "", {}, {!(srt_rogain getVariable "inProgress")}] call ace_interact_menu_fnc_createAction;
+[rogaineInterface, 0, ["ACE_MainActions", "rogain_root"], _amount, true] call ace_interact_menu_fnc_addActionToObject;
 
-_rangeLeft = ["range_left_root", "Shooting Range", "", {}, {true}] call ace_interact_menu_fnc_createAction;
+_amount5 = ["amount_5", "5", "", {amount = 5; publicVariable "amount";}, {true}] call ace_interact_menu_fnc_createAction;
+[rogaineInterface, 0, ["ACE_MainActions", "rogain_root", "amount_root"], _amount5, true] call ace_interact_menu_fnc_addActionToObject;
+
+_amount8 = ["amount_8", "8", "", {amount = 8; publicVariable "amount";}, {true}] call ace_interact_menu_fnc_createAction;
+[rogaineInterface, 0, ["ACE_MainActions", "rogain_root", "amount_root"], _amount8, true] call ace_interact_menu_fnc_addActionToObject;
+
+_amount10 = ["amount_10", "10", "", {amount = 10; publicVariable "amount";}, {true}] call ace_interact_menu_fnc_createAction;
+[rogaineInterface, 0, ["ACE_MainActions", "rogain_root", "amount_root"], _amount10, true] call ace_interact_menu_fnc_addActionToObject;
+
+_amount13 = ["amount_13", "13", "", {amount = 13; publicVariable "amount";}, {true}] call ace_interact_menu_fnc_createAction;
+[rogaineInterface, 0, ["ACE_MainActions", "rogain_root", "amount_root"], _amount13, true] call ace_interact_menu_fnc_addActionToObject;
+
+_amount15 = ["amount_15", "15", "", {amount = 15; publicVariable "amount";}, {true}] call ace_interact_menu_fnc_createAction;
+[rogaineInterface, 0, ["ACE_MainActions", "rogain_root", "amount_root"], _amount15, true] call ace_interact_menu_fnc_addActionToObject;
+
+_amount18 = ["amount_18", "18", "", {amount = 18; publicVariable "amount";}, {true}] call ace_interact_menu_fnc_createAction;
+[rogaineInterface, 0, ["ACE_MainActions", "rogain_root", "amount_root"], _amount18, true] call ace_interact_menu_fnc_addActionToObject;
+
+_amount20 = ["amount_20", "20", "", {amount = 20; publicVariable "amount";}, {true}] call ace_interact_menu_fnc_createAction;
+[rogaineInterface, 0, ["ACE_MainActions", "rogain_root", "amount_root"], _amount20, true] call ace_interact_menu_fnc_addActionToObject;
+
+//=============100-400 Shooting Range Actions=============\\
+_rangeLeft = ["range_left", "Shooting Range Controls", "", {}, {true}] call ace_interact_menu_fnc_createAction;
 [sRangeLeftInteract, 0, ["ACE_MainActions"], _rangeLeft, true] call ace_interact_menu_fnc_addActionToObject;
 
-_rangeLeftHide = ["range_left_hide", "Hide All", "", {rangeHideLeftFunction remoteExec ["call", 0, true];}, {true}] call ace_interact_menu_fnc_createAction;
-[sRangeLeftInteract, 0, ["ACE_MainActions", "range_left_root"], _rangeLeftHide, true] call ace_interact_menu_fnc_addActionToObject;
+_rangeLeft100 = ["100", "100 Meters", "", {["-left", shootRangeLeftLogic, 100] call Co2T_fnc_shootRange}, {(shootRangeLeftLogic getVariable "distancePosition") != 100}] call ace_interact_menu_fnc_createAction;
+[sRangeLeftInteract, 0, ["ACE_MainActions", "range_left"], _rangeLeft100, true] call ace_interact_menu_fnc_addActionToObject;
 
-_rangeLeftClose = ["range_left_close", "50 Meter Target", "", {
-	rangeHideLeftFunction remoteExec ["call", 0, true];
+_rangeLeft150 = ["150", "150 Meters", "", {["-left", shootRangeLeftLogic, 150] call Co2T_fnc_shootRange}, {(shootRangeLeftLogic getVariable "distancePosition") != 150}] call ace_interact_menu_fnc_createAction;
+[sRangeLeftInteract, 0, ["ACE_MainActions", "range_left"], _rangeLeft150, true] call ace_interact_menu_fnc_addActionToObject;
 
-	{{_x hideObject false} forEach ((getMissionLayerEntities "LeftClose") select 0)} remoteExec ["call", 0, true];
-}, {true}] call ace_interact_menu_fnc_createAction;
-[sRangeLeftInteract, 0, ["ACE_MainActions", "range_left_root"], _rangeLeftClose, true] call ace_interact_menu_fnc_addActionToObject;
+_rangeLeft200 = ["200", "200 Meters", "", {["-left", shootRangeLeftLogic, 200] call Co2T_fnc_shootRange}, {(shootRangeLeftLogic getVariable "distancePosition") != 200}] call ace_interact_menu_fnc_createAction;
+[sRangeLeftInteract, 0, ["ACE_MainActions", "range_left"], _rangeLeft200, true] call ace_interact_menu_fnc_addActionToObject;
 
-_rangeLeftMedium = ["range_left_medium", "100 Meter Target", "", {
-	rangeHideLeftFunction remoteExec ["call", 0, true];
+_rangeLeft300 = ["300", "300 Meters", "", {["-left", shootRangeLeftLogic, 300] call Co2T_fnc_shootRange}, {(shootRangeLeftLogic getVariable "distancePosition") != 300}] call ace_interact_menu_fnc_createAction;
+[sRangeLeftInteract, 0, ["ACE_MainActions", "range_left"], _rangeLeft300, true] call ace_interact_menu_fnc_addActionToObject;
 
-	{{_x hideObject false} forEach ((getMissionLayerEntities "LeftMedium") select 0)} remoteExec ["call", 0, true];
-}, {true}] call ace_interact_menu_fnc_createAction;
-[sRangeLeftInteract, 0, ["ACE_MainActions", "range_left_root"], _rangeLeftMedium, true] call ace_interact_menu_fnc_addActionToObject;
-
-_rangeLeftFar = ["range_left_far", "200 Meter Target", "", {
-	rangeHideLeftFunction remoteExec ["call", 0, true];
-
-	{{_x hideObject false} forEach ((getMissionLayerEntities "LeftFar") select 0)} remoteExec ["call", 0, true];
-}, {true}] call ace_interact_menu_fnc_createAction;
-[sRangeLeftInteract, 0, ["ACE_MainActions", "range_left_root"], _rangeLeftFar, true] call ace_interact_menu_fnc_addActionToObject;
+_rangeLeft400 = ["400", "400 Meters", "", {["-left", shootRangeLeftLogic, 400] call Co2T_fnc_shootRange}, {(shootRangeLeftLogic getVariable "distancePosition") != 400}] call ace_interact_menu_fnc_createAction;
+[sRangeLeftInteract, 0, ["ACE_MainActions", "range_left"], _rangeLeft400, true] call ace_interact_menu_fnc_addActionToObject;
 
 
-_rangeMiddle = ["range_middle_root", "Shooting Range", "", {}, {true}] call ace_interact_menu_fnc_createAction;
+_rangeMiddle = ["range_middle", "Shooting Range Controls", "", {}, {true}] call ace_interact_menu_fnc_createAction;
 [sRangeMiddleInteract, 0, ["ACE_MainActions"], _rangeMiddle, true] call ace_interact_menu_fnc_addActionToObject;
 
-_rangeMiddleHide = ["range_middle_hide", "Hide All", "", {rangeHideMiddleFunction remoteExec ["call", 0, true];}, {true}] call ace_interact_menu_fnc_createAction;
-[sRangeMiddleInteract, 0, ["ACE_MainActions", "range_middle_root"], _rangeMiddleHide, true] call ace_interact_menu_fnc_addActionToObject;
+_rangeMiddle100 = ["100", "100 Meters", "", {["-middle", shootRangeMiddleLogic, 100] call Co2T_fnc_shootRange}, {(shootRangeMiddleLogic getVariable "distancePosition") != 100}] call ace_interact_menu_fnc_createAction;
+[sRangeMiddleInteract, 0, ["ACE_MainActions", "range_middle"], _rangeMiddle100, true] call ace_interact_menu_fnc_addActionToObject;
 
-_rangeMiddleClose = ["range_middle_close", "50 Meter Target", "", {
-	rangeHideMiddleFunction remoteExec ["call", 0, true];
+_rangeMiddle150 = ["150", "150 Meters", "", {["-middle", shootRangeMiddleLogic, 150] call Co2T_fnc_shootRange}, {(shootRangeMiddleLogic getVariable "distancePosition") != 150}] call ace_interact_menu_fnc_createAction;
+[sRangeMiddleInteract, 0, ["ACE_MainActions", "range_middle"], _rangeMiddle150, true] call ace_interact_menu_fnc_addActionToObject;
 
-	{{_x hideObject false} forEach ((getMissionLayerEntities "MiddleClose") select 0)} remoteExec ["call", 0, true];
-}, {true}] call ace_interact_menu_fnc_createAction;
-[sRangeMiddleInteract, 0, ["ACE_MainActions", "range_middle_root"], _rangeMiddleClose, true] call ace_interact_menu_fnc_addActionToObject;
+_rangeMiddle200 = ["200", "200 Meters", "", {["-middle", shootRangeMiddleLogic, 200] call Co2T_fnc_shootRange}, {(shootRangeMiddleLogic getVariable "distancePosition") != 200}] call ace_interact_menu_fnc_createAction;
+[sRangeMiddleInteract, 0, ["ACE_MainActions", "range_middle"], _rangeMiddle200, true] call ace_interact_menu_fnc_addActionToObject;
 
-_rangeMiddleMedium = ["range_middle_medium", "100 Meter Target", "", {
-	rangeHideMiddleFunction remoteExec ["call", 0, true];
+_rangeMiddle300 = ["300", "300 Meters", "", {["-middle", shootRangeMiddleLogic, 300] call Co2T_fnc_shootRange}, {(shootRangeMiddleLogic getVariable "distancePosition") != 300}] call ace_interact_menu_fnc_createAction;
+[sRangeMiddleInteract, 0, ["ACE_MainActions", "range_middle"], _rangeMiddle300, true] call ace_interact_menu_fnc_addActionToObject;
 
-	{{_x hideObject false} forEach ((getMissionLayerEntities "MiddleMedium") select 0)} remoteExec ["call", 0, true];
-}, {true}] call ace_interact_menu_fnc_createAction;
-[sRangeMiddleInteract, 0, ["ACE_MainActions", "range_middle_root"], _rangeMiddleMedium, true] call ace_interact_menu_fnc_addActionToObject;
-
-_rangeMiddleFar = ["range_middle_far", "200 Meter Target", "", {
-	rangeHideMiddleFunction remoteExec ["call", 0, true];
-
-	{{_x hideObject false} forEach ((getMissionLayerEntities "MiddleFar") select 0)} remoteExec ["call", 0, true];
-}, {true}] call ace_interact_menu_fnc_createAction;
-[sRangeMiddleInteract, 0, ["ACE_MainActions", "range_middle_root"], _rangeMiddleFar, true] call ace_interact_menu_fnc_addActionToObject;
+_rangeMiddle400 = ["400", "400 Meters", "", {["-middle", shootRangeMiddleLogic, 400] call Co2T_fnc_shootRange}, {(shootRangeMiddleLogic getVariable "distancePosition") != 400}] call ace_interact_menu_fnc_createAction;
+[sRangeMiddleInteract, 0, ["ACE_MainActions", "range_middle"], _rangeMiddle400, true] call ace_interact_menu_fnc_addActionToObject;
 
 
-_rangeRight = ["range_right_root", "Shooting Range", "", {}, {true}] call ace_interact_menu_fnc_createAction;
+_rangeRight = ["range_right", "Shooting Range Controls", "", {}, {true}] call ace_interact_menu_fnc_createAction;
 [sRangeRightInteract, 0, ["ACE_MainActions"], _rangeRight, true] call ace_interact_menu_fnc_addActionToObject;
 
-_rangeRightHide = ["range_right_hide", "Hide All", "", {rangeHideRightFunction remoteExec ["call", 0, true];}, {true}] call ace_interact_menu_fnc_createAction;
-[sRangeRightInteract, 0, ["ACE_MainActions", "range_right_root"], _rangeRightHide, true] call ace_interact_menu_fnc_addActionToObject;
+_rangeRight100 = ["100", "100 Meters", "", {["-right", shootRangeRightLogic, 100] call Co2T_fnc_shootRange}, {(shootRangeRightLogic getVariable "distancePosition") != 100}] call ace_interact_menu_fnc_createAction;
+[sRangeRightInteract, 0, ["ACE_MainActions", "range_right"], _rangeRight100, true] call ace_interact_menu_fnc_addActionToObject;
 
-_rangeRightClose = ["range_right_close", "50 Meter Target", "", {
-	rangeHideRightFunction remoteExec ["call", 0, true];
+_rangeRight150 = ["150", "150 Meters", "", {["-right", shootRangeRightLogic, 150] call Co2T_fnc_shootRange}, {(shootRangeRightLogic getVariable "distancePosition") != 150}] call ace_interact_menu_fnc_createAction;
+[sRangeRightInteract, 0, ["ACE_MainActions", "range_right"], _rangeRight150, true] call ace_interact_menu_fnc_addActionToObject;
 
-	{{_x hideObject false} forEach ((getMissionLayerEntities "RightClose") select 0)} remoteExec ["call", 0, true];
-}, {true}] call ace_interact_menu_fnc_createAction;
-[sRangeRightInteract, 0, ["ACE_MainActions", "range_right_root"], _rangeRightClose, true] call ace_interact_menu_fnc_addActionToObject;
+_rangeRight200 = ["200", "200 Meters", "", {["-right", shootRangeRightLogic, 200] call Co2T_fnc_shootRange}, {(shootRangeRightLogic getVariable "distancePosition") != 200}] call ace_interact_menu_fnc_createAction;
+[sRangeRightInteract, 0, ["ACE_MainActions", "range_right"], _rangeRight200, true] call ace_interact_menu_fnc_addActionToObject;
 
-_rangeRightMedium = ["range_right_medium", "100 Meter Target", "", {
-	rangeHideRightFunction remoteExec ["call", 0, true];
+_rangeRight300 = ["300", "300 Meters", "", {["-right", shootRangeRightLogic, 300] call Co2T_fnc_shootRange}, {(shootRangeRightLogic getVariable "distancePosition") != 300}] call ace_interact_menu_fnc_createAction;
+[sRangeRightInteract, 0, ["ACE_MainActions", "range_right"], _rangeRight300, true] call ace_interact_menu_fnc_addActionToObject;
 
-	{{_x hideObject false} forEach ((getMissionLayerEntities "RightMedium") select 0)} remoteExec ["call", 0, true];
-}, {true}] call ace_interact_menu_fnc_createAction;
-[sRangeRightInteract, 0, ["ACE_MainActions", "range_right_root"], _rangeRightMedium, true] call ace_interact_menu_fnc_addActionToObject;
-
-_rangeRightFar = ["range_right_far", "200 Meter Target", "", {
-	rangeHideRightFunction remoteExec ["call", 0, true];
-
-	{{_x hideObject false} forEach ((getMissionLayerEntities "RightFar") select 0)} remoteExec ["call", 0, true];
-}, {true}] call ace_interact_menu_fnc_createAction;
-[sRangeRightInteract, 0, ["ACE_MainActions", "range_right_root"], _rangeRightFar, true] call ace_interact_menu_fnc_addActionToObject;
+_rangeRight400 = ["400", "400 Meters", "", {["-right", shootRangeRightLogic, 400] call Co2T_fnc_shootRange}, {(shootRangeRightLogic getVariable "distancePosition") != 400}] call ace_interact_menu_fnc_createAction;
+[sRangeRightInteract, 0, ["ACE_MainActions", "range_right"], _rangeRight400, true] call ace_interact_menu_fnc_addActionToObject;
 
 
 _rangeClearScore = ["range_clearScore", "Clear Score", "", {
@@ -177,9 +169,9 @@ _rangeClearScore = ["range_clearScore", "Clear Score", "", {
 	_player setVariable ["totalScore", [0, 0]];
 	systemChat format ["%1 score cleared.", name _player];
 }, {true}] call ace_interact_menu_fnc_createAction;
-[sRangeLeftInteract, 0, ["ACE_MainActions", "range_left_root"], _rangeClearScore, true] call ace_interact_menu_fnc_addActionToObject;
-[sRangeMiddleInteract, 0, ["ACE_MainActions", "range_middle_root"], _rangeClearScore, true] call ace_interact_menu_fnc_addActionToObject;
-[sRangeRightInteract, 0, ["ACE_MainActions", "range_right_root"], _rangeClearScore, true] call ace_interact_menu_fnc_addActionToObject;
+[sRangeLeftInteract, 0, ["ACE_MainActions"], _rangeClearScore, true] call ace_interact_menu_fnc_addActionToObject;
+[sRangeMiddleInteract, 0, ["ACE_MainActions"], _rangeClearScore, true] call ace_interact_menu_fnc_addActionToObject;
+[sRangeRightInteract, 0, ["ACE_MainActions"], _rangeClearScore, true] call ace_interact_menu_fnc_addActionToObject;
 
 _rangeShowScore = ["range_showScore", "Show Score", "", {
 	if (((_player getVariable "totalScore") select 0) > 0) then {
@@ -188,11 +180,11 @@ _rangeShowScore = ["range_showScore", "Show Score", "", {
 		systemChat "No score has been logged yet.";
 	}
 }, {true}] call ace_interact_menu_fnc_createAction;
-[sRangeLeftInteract, 0, ["ACE_MainActions", "range_left_root"], _rangeShowScore, true] call ace_interact_menu_fnc_addActionToObject;
-[sRangeMiddleInteract, 0, ["ACE_MainActions", "range_middle_root"], _rangeShowScore, true] call ace_interact_menu_fnc_addActionToObject;
-[sRangeRightInteract, 0, ["ACE_MainActions", "range_right_root"], _rangeShowScore, true] call ace_interact_menu_fnc_addActionToObject;
+[sRangeLeftInteract, 0, ["ACE_MainActions"], _rangeShowScore, true] call ace_interact_menu_fnc_addActionToObject;
+[sRangeMiddleInteract, 0, ["ACE_MainActions"], _rangeShowScore, true] call ace_interact_menu_fnc_addActionToObject;
+[sRangeRightInteract, 0, ["ACE_MainActions"], _rangeShowScore, true] call ace_interact_menu_fnc_addActionToObject;
 
-//=============MOS Interface Actions=============\\
+/*//=============MOS Interface Actions=============\\
 _toAT = ["to_AT", "Teleport to AT Training", "", {_player setPosATL (getPosATL ATRange)}, {true}] call ace_interact_menu_fnc_createAction;
 [MOSInterface, 0, ["ACE_MainActions"], _toAT, true] call ace_interact_menu_fnc_addActionToObject;
 

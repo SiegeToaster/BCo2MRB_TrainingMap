@@ -5,10 +5,11 @@ Training map for the Bravo Company, 2nd Marine Raider Battalion ArmA 3 Unit.
 
 #### Items with checked boxes are completed.
 ###### Training Areas:
-  - [ ] AT/AA *
+  - [x] AT
+  - [ ] AA
   - [ ] Grenadier *
   - [ ] Corpsman *
-  - [ ] Marksman **
+  - [x] Marksman
   - [ ] JTAC
   - [ ] Driver
   - [ ] Parachuting/HALO
@@ -18,7 +19,7 @@ Training map for the Bravo Company, 2nd Marine Raider Battalion ArmA 3 Unit.
 - [ ] USS Khe Sahn (LHD) Strike Group
 - [x] Vehicle Garages
 - [x] Firing Range (100-400m)
-- [ ] Firing Range (400m+) **
+- [x] Firing Range (400m+)
 - [x] Briefing Area
 - [ ] Maritime Interdiction Scenario *
 - [ ] CQC Shoothouses *
@@ -59,5 +60,21 @@ Training map for the Bravo Company, 2nd Marine Raider Battalion ArmA 3 Unit.
 - Updated ORBAT
 - Miscellaneous optimization changes
 - Added the USS Khe Sahn (LHD), USS Liberty (Destroyer), and Cargo Ship (Natural Gas); No interactions, respawns, etc. have been added.
+
+### Version 0.2.3
+- Added 400-1000m firing range
+- Added teleporter to 100-400m firing ranges and 400-1000m firing range
+- Added runway lights and helicopters at main base (Hall)
+- Added new helicopters to helicopter spawner (small aviation vehicles)
+- Cleaned up Layers (Editor)
+- Merged 'Hide Terrain Object' Modules where appropriate
+- Added MOS Training Areas
+	- AT Range
+	- Marksman Range (400-1000m firing range)
+- Updated shoothouses
+	- Ability to choose responsive/unresponsive AI (responsive AI will shoot back, unresponsive won't)
+	- Added spectator buildings and teleporters for The Pit
+	- Minor bug fixes
+- Added loadout saving
 
 **NOTE: The Consulate Shoothouse does not work.  However, Shoothouse 1, 2, and The Pit do work.**

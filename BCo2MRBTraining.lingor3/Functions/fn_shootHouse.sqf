@@ -10,6 +10,7 @@ params [["_location", sh1Spawn, [sh1Spawn]]];
 private _trigger = _location getVariable "triggerName";
 _location setVariable ["inProgress", true, true];
 private _startTime = time;
+private _shootHouseMode = shootHouseMode;
 
 (str _location + " starting.") remoteExec ["systemChat", 0];
 private _spawnPoints = (nearestObjects [_location, ["Logic"], 100]) call BIS_fnc_arrayShuffle;
@@ -34,7 +35,7 @@ switch (str _location) do {
 };
 
 private _tgts = [];
-for [{private _i = 0}, {_i < (count _spawnPoints)}, {_i = _i + 1}] do {_enemy createUnit [(_spawnPoints select _i), enemyGroup, "this disableAI 'PATH'; _tgts pushBack this;", 0.4]};
+for [{private _i = 0}, {_i < (count _spawnPoints)}, {_i = _i + 1}] do {_enemy createUnit [(_spawnPoints select _i), enemyGroup, _shootHouseMode + "_tgts pushBack this;", 0.4]};
 {_x setPosATL getPosATL (_location)} forEach _players;
 
 waitUntil {{alive _x} count _tgts == 0 || {_x inArea _trigger} count _players == 0 || {alive _x} count _players == 0};

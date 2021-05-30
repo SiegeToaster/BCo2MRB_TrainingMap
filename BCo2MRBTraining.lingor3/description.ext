@@ -17,11 +17,13 @@ class CfgFunctions
 {
 	class Co2T
 	{
-		class unility
+		class utility
 		{
 			file = "Functions";
 			class timeConvert {}; // Co2T_fnc_timeConvert
-		}
+			class isVisible {}; // Co2T_fnc_isVisible
+			class loadoutCheck {}; // Co2T_fnc_loadoutCheck
+		};
 
 		class vehiclePool
 		{
@@ -35,14 +37,14 @@ class CfgFunctions
 			file = "Functions";
 			class shootHouse {}; // Co2T_fnc_shootHouse
 			class rogaining {}; // Co2T_fnc_rogaining
-		}
+		};
 
 		class training
 		{
 			file = "Functions";
 			class mosATLand {}; // Co2T_fnc_mosATLand
 			class shootRange {}; // Co2T_fnc_shootRange
-		}
+		};
 	};
 };
 

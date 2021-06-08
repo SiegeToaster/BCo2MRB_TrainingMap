@@ -77,4 +77,12 @@ Training map for the Bravo Company, 2nd Marine Raider Battalion ArmA 3 Unit.
 	- Minor bug fixes
 - Added loadout saving
 
+### Version 0.2.4 - Hotfix
+- Fixed arsenal trigger bug that sends a systemchat to everyone instead of the specific player that exited the trigger
+- Bug fixes to the loadout saving script
+	- remoteExec and call script
+	- use current player loadout instead of nil for fetching loadout
+- Started work on Shoothouse 3
+- Removed all assets/scripts with a dependency for the [FIR AWS(AirWeaponSystem)](https://steamcommunity.com/workshop/filedetails/?id=366425329) mod
+
 **NOTE: The Consulate Shoothouse does not work.  However, Shoothouse 1, 2, and The Pit do work.**

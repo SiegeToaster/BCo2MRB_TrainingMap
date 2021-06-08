@@ -263,19 +263,16 @@ _baseVehiclePool = ["base_vehiclePool", "Spawn Vehicles", "", {[[t_landVehicles1
 _baseHeloVehiclePool = ["base_airVehiclePool", "Spawn Vehicles", "", {[[t_heloVehicles1, t_heloVehicles2, t_heloVehicles3, t_heloVehicles4, t_heloVehicles5, t_heloVehicles6, t_heloVehicles7, t_heloVehicles8], (smallAviationVehicles + mediumAviationVehicles)] call Co2T_fnc_vehPoolDialogCreate}, {true}] call ace_interact_menu_fnc_createAction;
 [vehicleHeloPoolInteract, 0, ["ACE_MainActions"], _baseHeloVehiclePool, true] call ace_interact_menu_fnc_addActionToObject;
 
-_baseAirVehiclePool = ["destroyer_airVehiclePool", "Spawn Vehicles", "", {[[t_airVehicles1, t_airVehicles2, t_airVehicles3, t_airVehicles4], largeAviationVehicles] call Co2T_fnc_vehPoolDialogCreate}, {true}] call ace_interact_menu_fnc_createAction;
-[vehicleAirPoolInteract, 0, ["ACE_MainActions"], _baseAirVehiclePool, true] call ace_interact_menu_fnc_addActionToObject;
-
 //=============Arsenals=============\\
 _arsenalSaveLoadout = ["arsenal_saveLoadout", "Save Loadout", "", {
 	_player setVariable ["loadout", getUnitLoadout _player];
 	_player setVariable ["customLoadout", true];
-	[_player] spawn Co2T_fnc_loadoutCheck;
+	[_player] remoteExec ["Co2T_fnc_loadoutCheck", _player];
 }, {true}] call ace_interact_menu_fnc_createAction;
 {[_x, 0, ["ACE_MainActions"], _arsenalSaveLoadout, true] call ace_interact_menu_fnc_addActionToObject;} forEach [arsenal1, arsenal2, arsenal3, arsenal4];
 
 _arsenalFetchLoadout = ["arsenal_fetchLoadout", "Retrieve Loadout", "", {
-	private _loadout = _player getVariable ["loadout", nil];
+	private _loadout = _player getVariable ["loadout", getUnitLoadout _player];
 	removeAllWeapons _player;
 	removeGoggles _player;
 	removeHeadgear _player;
@@ -284,7 +281,7 @@ _arsenalFetchLoadout = ["arsenal_fetchLoadout", "Retrieve Loadout", "", {
 	removeAllAssignedItems _player;
 	clearAllItemsFromBackpack _player;
 	removeBackpack _player;
-	_player setUnitLoadout (_player getVariable "loadout");
+	_player setUnitLoadout _loadout;
 }, {
 	private _loadout = _player getVariable ["loadout", nil];
 	!isNil "_loadout"

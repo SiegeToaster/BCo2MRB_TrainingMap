@@ -102,5 +102,5 @@ Training map for the Bravo Company, 2nd Marine Raider Battalion ArmA 3 Unit.
 - Added custom GUI to start rogaining
 - Added waitUntil conditions to make sure everything is setup before moving on in shootHouse, rogaining, and mosATLand functions
 - Fixed locality bugs in rogaining and mosATLand functions
-
-**NOTE: The Consulate Shoothouse does not work.  However, Shoothouse 1, 2, 3, and The Pit do work (mostly).**
+#### Version 0.2.5.1
+- Added multi-level support for shoothouses (fix to shoot house 3 and The Consulate)

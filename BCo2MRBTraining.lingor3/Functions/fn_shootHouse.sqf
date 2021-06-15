@@ -24,40 +24,41 @@ if (_responsive) then {
 	_responsive = "this disableAI 'all';";
 };
 
+private _difficultyMultiplier = 1;
 switch (toLower _difficulty) do {
-	case "easy": {_difficulty = 0.8};
-	case "medium": {_difficulty = 1};
-	case "hard": {_difficulty = 1.25};
-	case "test": {_difficulty = 4}; // this will cause all enemy positions to be used.
-	default {_difficulty = 1};
+	case "easy": {_difficultyMultiplier = 0.8};
+	case "medium": {_difficultyMultiplier = 1};
+	case "hard": {_difficultyMultiplier = 1.25};
+	case "test": {_difficultyMultiplier = 4}; // this will cause all enemy positions to be used.
+	default {_difficultyMultiplier = 1};
 };
 
-(str _location + " starting.") remoteExec ["systemChat", 0];
+(str _location + " starting on " + toLower _difficulty + " difficulty.") remoteExec ["systemChat", 0];
 private _players = nearestObjects [startArea, ["Man"], 4];
 _location setVariable ["players", _players, true];
 private _enemy = selectRandom ["rhsgref_ins_g_rifleman_akm", "rhsgref_ins_g_rifleman_aks74", "rhsgref_ins_g_rifleman_aksu", "rhssaf_army_m10_digital_rifleman_m21", "rhssaf_army_m10_digital_rifleman_m70"];
 
 switch (str _location) do {
 	case "sh1Spawn": {
-		_spawnPoints resize (round (((count _spawnPoints) / 4) * _difficulty));
+		_spawnPoints resize (round (((count _spawnPoints) / 4) * _difficultyMultiplier));
 		if (count _players > 4) then {
 			_players resize 4;
 		};		
 	};
 	case "sh2Spawn": {
-		_spawnPoints resize (round (((count _spawnPoints) / 4) * _difficulty));
+		_spawnPoints resize (round (((count _spawnPoints) / 4) * _difficultyMultiplier));
 		if (count _players > 6) then {
 			_players resize 6;
 		};
 	};
 	case "sh3Spawn": {
-		switch (_difficulty) do {
-			case 0.8: {_difficulty = 0.7};
-			case 1.25: {_difficulty = 1.5};
-			case 4: {_difficulty = 8};
+		switch (_difficultyMultiplier) do {
+			case 0.8: {_difficultyMultiplier = 0.7};
+			case 1.25: {_difficultyMultiplier = 1.5};
+			case 4: {_difficultyMultiplier = 8};
 		};
 
-		_spawnPoints resize (round (((count _spawnPoints) / 8) * _difficulty));
+		_spawnPoints resize (round (((count _spawnPoints) / 8) * _difficultyMultiplier));
 	};
 	case "pitSpawn";
 	case "consulateSpawn": {
@@ -69,9 +70,9 @@ switch (str _location) do {
 };
 
 private _tgts = [];
-for [{private _i = 0}, {_i < (count _spawnPoints)}, {_i = _i + 1}] do {_enemy createUnit [(_spawnPoints select _i), enemyGroup, _responsive + "_tgts pushBack this;", 0.4]};
+for [{private _i = 0}, {_i < (count _spawnPoints)}, {_i = _i + 1}] do {_enemy createUnit [(_spawnPoints select _i), enemyGroup, _responsive + "_tgts pushBack this; this setPosASL (getPosASL (_spawnPoints select _i));", 0.4]};
 if !(isNil "_turretSpawnPoints") then {
-	for [{private _i = 0}, {_i < (count _turretSpawnPoints)}, {_i = _i + 1}] do {"rhsgref_ins_g_DSHKM" createUnit [(_turretSpawnPoints select _i), enemyGroup, _responsive + "_tgts pushBack this;", 0.4]};
+	for [{private _i = 0}, {_i < (count _turretSpawnPoints)}, {_i = _i + 1}] do {"rhsgref_ins_g_DSHKM" createUnit [(_turretSpawnPoints select _i), enemyGroup, _responsive + "_tgts pushBack this; this setPosASL (getPosASL (_spawnPoints select _i));", 0.4]};
 };
 {_x setPosATL getPosATL (_location)} forEach _players;
 private _startTime = time;
@@ -107,5 +108,5 @@ waitUntil {{alive _x} count _tgts == 0 || (if (typeName _trigger == "ARRAY") the
 } forEach _players;
 {deleteVehicle _x} forEach _tgts;
 
-(str _location + " finished in " + ([time - _startTime] call Co2T_fnc_timeConvert) + ".") remoteExec ["systemChat", 0];
+(str _location + " finished in " + ([time - _startTime] call Co2T_fnc_timeConvert) + " on " + toLower _difficulty + " difficulty.") remoteExec ["systemChat", 0];
 _location setVariable ["inProgress", false, true];

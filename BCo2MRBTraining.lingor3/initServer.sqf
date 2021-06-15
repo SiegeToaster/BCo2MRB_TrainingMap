@@ -48,6 +48,7 @@ sh3Spawn setVariable ["triggername", [[6904.54,9330.45,0],[6885.79,9314.8,0],[68
 sh3Spawn setVariable ["spawnPoints", sh3Pos, true];
 sh3Spawn setVariable ["turretSpawnPoints", sh3TurretPos, true];
 consulateSpawn setVariable ["triggerName", t_Consulate, true];
+consulateSpawn setVariable ["spawnPoints", consulatePos, true];
 
 shootRangeLeftLogic setVariable ["distancePosition", 100, true];
 shootRangeMiddleLogic setVariable ["distancePosition", 100, true];

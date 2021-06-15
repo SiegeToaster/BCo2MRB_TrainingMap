@@ -36,7 +36,9 @@ class CfgFunctions
 		{
 			file = "Functions";
 			class shootHouse {}; // Co2T_fnc_shootHouse
+			class shootHouseDialogCreate {}; // Co2T_fnc_shootHouseDialogCreate
 			class rogaining {}; // Co2T_fnc_rogaining
+			class rogaineDialogCreate {}; // Co2T_fnc_rogaineDialogCreate
 		};
 
 		class training
@@ -59,7 +61,7 @@ class CfgORBAT
 		type = "HQ";
 		insignia = "images\insignia.paa";
 		tags[] = {2C};
-		text = "Bravo Company, 2nd Marine Raider Battalion."
+		text = "Bravo Company, 2nd Marine Raider Battalion.";
 		textShort = "%1 %3";
 		description = "Bravo Company, 2d Marine Raider Regiment is a realistic Milsim Arma III unit. The Marine Special Operations Company is tasked with doing a multitude of specific Special Operations to aid the United State's interests. BCo2MRB is set in a modern, fictional universe where many political changes have occurred such as Pakistan and India engaging in a Nuclear Arms race, CSAT being formed and comprising of China, Iran, Laos, and Vietnam, Sweden, Norway, Denmark, Finland, and Iceland forming into one country, and many more. This slight change in today's world allows the Operators and Aviators of BCo2MRB to engage in story-driven deployments spanning over multiple weeks. The Company is also supported by Harrier Attack Planes from the Marine Corps' VMA-214 to provide Close Air Support, Combat Air Patrols, and Reconnaissance Solutions to support Marine Raiders. The US Air Force's 41st Rescue Squadron and 26th Special Tactics Squadron are also attached to provide a multitude of Fire and Logistical Support as well as Control and Direction of Support aircraft within contested air spaces. BCo2MRB members are put through an intense training regime, focusing strongly on individual skills and teamwork to ensure they are a strong asset to the team, not a liability.";
 		
@@ -87,59 +89,27 @@ class CfgORBAT
 			textShort = "MSOT-3382";
 		};
 
-		class 3rdPlt
-		{
-			id = 3;
-			side = "West";
-			size = "Platoon";
-			type = "Infantry";
-			tags[] = {2C};
-			text = "MSOT-0104 ""The Wolfpack""";
-			textShort = "MSOT-0104";
-		};
-
-		class 4thPlt
-		{
-			id = 4;
-			side = "West";
-			size = "Platoon";
-			type = "Infantry";
-			tags[] = {2C};
-			text = "MSOT-9027 ""The Outlaws""";
-			textShort = "MSOT-9027";
-		};
-
 		class 26STS
 		{
 			id = 26;
 			side = "West";
 			size = "IBCT";
-			type = "AviationSupport";
+			type = "AttackRecon";
 			tags[] = {2C};
 			text = "%1 Special Tactics Squadron";
 			textShort = "%1 STS";
 		};
 
-		class 41stRescue
+		class 160SOAR
 		{
-			id = 41;
+			id = 1;
+			idType = 2;
 			side = "West";
 			size = "Squadron";
 			type = "Helicopter";
-			tags[] = {2C,Aviation};
-			text = "%1 %2 Rescue %3";
-			textShort = "%1 Rescue";
-		};
-
-		class VMA214
-		{
-			id = 214;
-			side = "West";
-			size = "Squadron";
-			type = "Fighter";
 			tags[] = {2C, Aviation};
-			text = "VMA-214";
-			textshort = "VMA-214";
+			text = "Alpha Company, 1-160th SOAR";
+			textShort = "A Co., 1-160th SOAR";
 		};
 
 		class 2A
@@ -151,9 +121,9 @@ class CfgORBAT
 			commander = "Siege";
 			commanderRank = "General";
 			tags[] = {2C};
-			text = "The Fellowship of the AI and Siege"
+			text = "The Fellowship of the AI and Siege";
 			textShort = "The Fellowship";
-			description = "The Fellowship of the AI and Siege make the training map for BCo2MRB.  As of now, the Fellowship consists of:<br></br>Gen. Siege<br></br>GySgt. Highway<br></br>Https. community.bistudio.com/wiki<br></br>Pvt. Shoothouse Enemy<br></br><br></br><br></br><br></br>The AI are my friends now"
+			description = "The Fellowship of the AI and Siege make the training map for BCo2MRB.  As of now, the Fellowship consists of:<br></br>Gen. Siege<br></br>GySgt. Highway<br></br>Https. community.bistudio.com/wiki<br></br>Pvt. Shoothouse Enemy<br></br><br></br><br></br><br></br>The AI are my friends now";
 		};
 	};
 };

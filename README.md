@@ -25,7 +25,7 @@ Training map for the Bravo Company, 2nd Marine Raider Battalion ArmA 3 Unit.
 - [ ] CQC Shoothouses *
   - [x] Shoothouse 1
   - [x] Shoothouse 2
-  - [ ] Shoothouse 3
+  - [x] Shoothouse 3
   - [x] The Pit
   - [ ] Consulate
 - [x] Land Navigation Course (Rogaining)
@@ -85,4 +85,22 @@ Training map for the Bravo Company, 2nd Marine Raider Battalion ArmA 3 Unit.
 - Started work on Shoothouse 3
 - Removed all assets/scripts with a dependency for the [FIR AWS(AirWeaponSystem)](https://steamcommunity.com/workshop/filedetails/?id=366425329) mod
 
-**NOTE: The Consulate Shoothouse does not work.  However, Shoothouse 1, 2, and The Pit do work.**
+### Version 0.2.5
+- 3den Attributes updated
+- Updated/Added function descriptions
+- Fixed shoothouse scripts (null objects in _players array)
+- Added difficulty to shoothouses
+- Added automatic array generation for consecutive objects (e.g, shoothouse spawn locations)
+- Players can no longer leave a shoothouse without using the return to base action.
+- Updated ORBAT
+- Minor update to vehicle pool GUI function
+- Added custom GUI to start shoot houses
+- Updated small and medium aviation vehicles
+	- renamed little birds to add proper designations
+	- added new large helicopters
+- Added Shoothouse 3
+- Added custom GUI to start rogaining
+- Added waitUntil conditions to make sure everything is setup before moving on in shootHouse, rogaining, and mosATLand functions
+- Fixed locality bugs in rogaining and mosATLand functions
+
+**NOTE: The Consulate Shoothouse does not work.  However, Shoothouse 1, 2, 3, and The Pit do work (mostly).**

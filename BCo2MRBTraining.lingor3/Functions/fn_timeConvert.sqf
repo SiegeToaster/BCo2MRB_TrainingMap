@@ -1,11 +1,9 @@
 /* Author: Siege
-	Description: Converts seconds minutes and seconds.
+	Description: Converts seconds minutes and seconds with decimal.
 
 	Parameters:
-		0: number.  The seconds.
-
-	Return:
-		Minutes and seconds.
+		0: NUMBER - Seconds to convert.
+	Return:	STRING - Minutes and seconds with decimal.
 */
 
 params [["_seconds", 0, [1.1]]];

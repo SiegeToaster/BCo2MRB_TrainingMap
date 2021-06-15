@@ -2,10 +2,9 @@
 	Description: Determines if a point is visible from another point.
 
 	Parameters:
-		0: Player - OBJECT.  The player.
-		1: Target - OBJECT.  The object that is being tested.
-
-	Returns:
+		0: OBJECT - The player.
+		1: OBJECT - The object that is being tested.
+	Returns: NUMBER - number of objects passed by lineIntersectsSurfaces.
 */
 
 params [

@@ -1,4 +1,4 @@
-waitUntil {({!isNil _x} count ["shootHousePlayerInterfaces", "shootHouseSpectatorInterfaces", "shootingRangeTargets", "MOSTrainingInterfaces"]) > 1};
+waitUntil {({!isNil _x} count ["shootHousePlayerInterfaces", "shootHouseSpectatorInterfaces", "MOSTrainingInterfaces"]) > 1};
 
 //=============Player Variables=============\\
 
@@ -11,29 +11,8 @@ player setVariable ["customLoadout", false]; // loadout vars
 //=============ACE Interactions=============\\
 
 //=============Shoothouse Interactions=============\\
-_shootHouseMode = ["shootHouse_mode", "Switch Mode", "", {}, {true}] call ace_interact_menu_fnc_createAction;
-[startInterface, 0, ["ACE_MainActions"], _shootHouseMode, true] call ace_interact_menu_fnc_addActionToObject;
-
-_shootHouseModeUnresponsive = ["shootHouse_mode_unresponsive", "Unresponsive AI", "", {shootHouseMode = "this disableAI 'all';"}, {shootHouseMode == "this disableAI 'PATH';"}]  call ace_interact_menu_fnc_createAction;
-[startInterface, 0, ["ACE_MainActions", "shootHouse_mode"], _shootHouseModeUnresponsive, true] call ace_interact_menu_fnc_addActionToObject;
-
-_shootHouseModeResponsive = ["shootHouse_mode_responsive", "Responsive AI", "", {shootHouseMode = "this disableAI 'PATH';"}, {shootHouseMode == "this disableAI 'all';"}] call ace_interact_menu_fnc_createAction;
-[startInterface, 0, ["ACE_MainActions", "shootHouse_mode"], _shootHouseModeResponsive, true] call ace_interact_menu_fnc_addActionToObject;
-
-_start = ["start_root", "Start Shoot Houses", "", {}, {true}] call ace_interact_menu_fnc_createAction;
+_start = ["start_root", "Start Shoot Houses", "", {call Co2T_fnc_shootHouseDialogCreate}, {true}] call ace_interact_menu_fnc_createAction;
 [startInterface, 0, ["ACE_MainActions"], _start, true] call ace_interact_menu_fnc_addActionToObject;
-
-_startPit = ["start_pit", "Start The Pit", "", {[pitSpawn] remoteExec ["Co2T_fnc_shootHouse", 2];}, {!(pitSpawn getVariable "inProgress")}] call ace_interact_menu_fnc_createAction;
-[startInterface, 0, ["ACE_MainActions", "start_root"], _startPit, true] call ace_interact_menu_fnc_addActionToObject;
-
-/*_startConsulate = ["start_consulate", "Start Consulate", "", {[consulateSpawn] remoteExec ["Co2T_fnc_shootHouse", 2]}, {!(consulateSpawn getVariable "inProgress")}] call ace_interact_menu_fnc_createAction;
-[startInterface, 0, ["ACE_MainActions", "start_root"], _startConsulate, true] call ace_interact_menu_fnc_addActionToObject;*/
-
-_startSH1 = ["start_sh1", "Start Shoot House 1", "", {[sh1Spawn] remoteExec ["Co2T_fnc_shootHouse", 2]}, {!(sh1Spawn getVariable "inProgress")}] call ace_interact_menu_fnc_createAction;
-[startInterface, 0, ["ACE_MainActions", "start_root"], _startSH1, true] call ace_interact_menu_fnc_addActionToObject;
-
-_startSH2 = ["start_sh2", "Start Shoot House 2", "", {[sh2Spawn] remoteExec ["Co2T_fnc_shootHouse", 2]}, {!(sh2Spawn getVariable "inProgress")}] call ace_interact_menu_fnc_createAction;
-[startInterface, 0, ["ACE_MainActions", "start_root"], _startSH2, true] call ace_interact_menu_fnc_addActionToObject;
 
 _return = ["return", "Return to Base", "", {_player setPosATL (getPosATL startArea); [objNull, _player] call ace_medical_treatment_fnc_fullHeal;}, {true}] call ace_interact_menu_fnc_createAction;
 {[_x, 0, ["ACE_MainActions"], _return, true] call ace_interact_menu_fnc_addActionToObject;} forEach shootHousePlayerInterfaces;
@@ -72,48 +51,9 @@ _spectateSH2West = ["spectate_SH2_west", "West", "", {_player setCaptive true; _
 _spectateReturn = ["spectate_return", "Return to Base", "", {_player setCaptive false; _player allowDamage true; _player setPosATL (getPosATL spectateInterface)}, {true}] call ace_interact_menu_fnc_createAction;
 {[_x, 0, ["ACE_MainActions", "spectate_root"], _spectateReturn, true] call ace_interact_menu_fnc_addActionToObject;} forEach shootHouseSpectatorInterfaces - [spectateInterface];
 
-//=============Rogaining Actions=============\\
-_rogain = ["rogain_root", "Rogaining", "", {}, {true}] call ace_interact_menu_fnc_createAction;
+//=============Rogaining Action=============\\
+_rogain = ["rogain", "Start Rogaining", "", {call Co2T_fnc_rogaineDialogCreate}, {true}] call ace_interact_menu_fnc_createAction;
 [rogaineInterface, 0, ["ACE_MainActions"], _rogain, true] call ace_interact_menu_fnc_addActionToObject;
-
-_rogainStart = ["rogain_start", "Start", "", {remoteExec ["Co2T_fnc_rogaining", 2];}, {!(srt_rogain getVariable "inProgress")}] call ace_interact_menu_fnc_createAction;
-[rogaineInterface, 0, ["ACE_MainActions", "rogain_root"], _rogainStart, true] call ace_interact_menu_fnc_addActionToObject;
-
-_difficulty = ["difficulty_root", "Difficulty", "", {}, {!(srt_rogain getVariable "inProgress")}] call ace_interact_menu_fnc_createAction;
-[rogaineInterface, 0, ["ACE_MainActions", "rogain_root"], _difficulty, true] call ace_interact_menu_fnc_addActionToObject;
-
-_difficultyEasy = ["difficulty_easy", "Easy", "", {diff = "Easy"; publicVariable "diff";}, {true}] call ace_interact_menu_fnc_createAction;
-[rogaineInterface, 0, ["ACE_MainActions", "rogain_root", "difficulty_root"], _difficultyEasy, true] call ace_interact_menu_fnc_addActionToObject;
-
-_difficultyNormal = ["difficulty_normal", "Normal", "", {diff = "Normal"; publicVariable "diff";}, {true}] call ace_interact_menu_fnc_createAction;
-[rogaineInterface, 0, ["ACE_MainActions", "rogain_root", "difficulty_root"], _difficultyNormal, true] call ace_interact_menu_fnc_addActionToObject;
-
-_difficultyHard = ["difficulty_normal", "Hard", "", {diff = "Hard"; publicVariable "diff";}, {true}] call ace_interact_menu_fnc_createAction;
-[rogaineInterface, 0, ["ACE_MainActions", "rogain_root", "difficulty_root"], _difficultyHard, true] call ace_interact_menu_fnc_addActionToObject;
-
-_amount = ["amount_root", "Number of Checkpoints", "", {}, {!(srt_rogain getVariable "inProgress")}] call ace_interact_menu_fnc_createAction;
-[rogaineInterface, 0, ["ACE_MainActions", "rogain_root"], _amount, true] call ace_interact_menu_fnc_addActionToObject;
-
-_amount5 = ["amount_5", "5", "", {amount = 5; publicVariable "amount";}, {true}] call ace_interact_menu_fnc_createAction;
-[rogaineInterface, 0, ["ACE_MainActions", "rogain_root", "amount_root"], _amount5, true] call ace_interact_menu_fnc_addActionToObject;
-
-_amount8 = ["amount_8", "8", "", {amount = 8; publicVariable "amount";}, {true}] call ace_interact_menu_fnc_createAction;
-[rogaineInterface, 0, ["ACE_MainActions", "rogain_root", "amount_root"], _amount8, true] call ace_interact_menu_fnc_addActionToObject;
-
-_amount10 = ["amount_10", "10", "", {amount = 10; publicVariable "amount";}, {true}] call ace_interact_menu_fnc_createAction;
-[rogaineInterface, 0, ["ACE_MainActions", "rogain_root", "amount_root"], _amount10, true] call ace_interact_menu_fnc_addActionToObject;
-
-_amount13 = ["amount_13", "13", "", {amount = 13; publicVariable "amount";}, {true}] call ace_interact_menu_fnc_createAction;
-[rogaineInterface, 0, ["ACE_MainActions", "rogain_root", "amount_root"], _amount13, true] call ace_interact_menu_fnc_addActionToObject;
-
-_amount15 = ["amount_15", "15", "", {amount = 15; publicVariable "amount";}, {true}] call ace_interact_menu_fnc_createAction;
-[rogaineInterface, 0, ["ACE_MainActions", "rogain_root", "amount_root"], _amount15, true] call ace_interact_menu_fnc_addActionToObject;
-
-_amount18 = ["amount_18", "18", "", {amount = 18; publicVariable "amount";}, {true}] call ace_interact_menu_fnc_createAction;
-[rogaineInterface, 0, ["ACE_MainActions", "rogain_root", "amount_root"], _amount18, true] call ace_interact_menu_fnc_addActionToObject;
-
-_amount20 = ["amount_20", "20", "", {amount = 20; publicVariable "amount";}, {true}] call ace_interact_menu_fnc_createAction;
-[rogaineInterface, 0, ["ACE_MainActions", "rogain_root", "amount_root"], _amount20, true] call ace_interact_menu_fnc_addActionToObject;
 
 //=============100-400 Shooting Range Actions=============\\
 _rangeLeft = ["range_left", "Shooting Range Controls", "", {}, {true}] call ace_interact_menu_fnc_createAction;

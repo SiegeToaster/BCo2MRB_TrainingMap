@@ -2,10 +2,9 @@
 	Description: manages the shooting range.
 
 	Parameters:
-		0: Layer - NUMBER or STRING.  The number/string of the layer.  Used by getMissionLayerEntities
-		1: Logic - OBJECT.  The object correlating to the layer.
-		2: Distance - NUMBER.  The target distance.
-
+		0: NUMBER or STRING.  The number/string of the layer.
+		1: OBJECT.  The logic correlating to the layer.
+		2: NUMBER.  The target distance.
 	Return: N/A
 */
 

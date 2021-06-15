@@ -1,3 +1,11 @@
+/* Author: Siege
+	Description: Checks loadout for earplugs and saves loadout if a custom one is not saved.
+
+	Params:
+		0: OBJECT - The player that is being checked.
+	Returns: N/A.
+*/
+
 params [
 	["_player", objNull, [objNull]]
 ];

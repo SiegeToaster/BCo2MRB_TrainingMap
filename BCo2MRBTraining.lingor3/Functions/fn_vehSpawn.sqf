@@ -2,10 +2,8 @@
 
 	Description: Finds availabe spot for a vehicle to be spawned at.
 
-	Parameters: NONE
-
-	Returns:
-	OBJECT - The first trigger that is empty.
+	Parameters: N/A.
+	Returns: OBJECT - The first trigger that is empty.
 */
 if (lbCurSel 2100 == 0) exitWith {};
 

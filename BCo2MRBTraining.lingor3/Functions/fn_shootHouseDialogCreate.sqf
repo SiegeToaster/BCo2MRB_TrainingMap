@@ -13,7 +13,7 @@ createDialog "shootHouse";
 		private _tempIndex = lbAdd [2100, _x select 0];
 		lbSetData [2100, _tempIndex, _x select 1];
 	};
-} forEach [["Shoot House 1", "sh1Spawn"], ["Shoot House 2", "sh2Spawn"], ["Shoot House 3", "sh3Spawn"], ["The Pit", "pitSpawn"], ["The Consulate", "consulateSpawn"]];
+} forEach [["Shoot House 1", "sh1Spawn"], ["Shoot House 2", "sh2Spawn"], ["Shoot House 3", "sh3Spawn"], ["The Pit", "pitSpawn"], ["The Consulate", "consulateSpawn"], ["Cargo Ship", "cargoShip"]];
 lbSetCurSel [2100, 0];
 {
 	private _tempIndex = lbAdd [2101, _x];

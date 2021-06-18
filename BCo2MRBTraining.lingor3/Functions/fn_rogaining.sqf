@@ -42,7 +42,7 @@ private _pos = createVehicle ["FlagSmall_F", (_positions select 0)];
 } remoteExec ["call", _players];
 
 sleep 1;
-hintSilent "";
+"" remoteExec ["hintSilent", _players]; 
 
 createMarker ["_posMarker", _positions select 0, 0];
 "_posMarker" setMarkerType "hd_flag";
@@ -52,12 +52,14 @@ waitUntil {{_x inArea t_trainingIsland} count _players == (count _players)};
 private _startTime = time;
 
 for [{private _i = 1}, {_i < (_amount + 1)}, {_i = _i + 1}] do {
-	waitUntil {{(_x distance _pos) < 4} forEach _players || {_x inArea t_trainingIsland} count _players == 0};
+	// str (({(_x distance _pos) < 4} count _players) > 0) remoteExec ["systemChat", 0];
+	waitUntil {({(_x distance _pos) < 4} count _players) > 0 || {_x inArea t_trainingIsland} count _players == 0};
+	// "waitUntil marker" remoteExec ["systemChat", 0];
 	if ({_x inArea t_trainingIsland} count _players == 0) exitWith {};
 	["markerReached", []] remoteExecCall ["BIS_fnc_showNotification", _players];
 	deleteVehicle _pos;
 	deleteMarker "_posMarker";
-	_pos = createVehicle ["FlagSmall_F", (_positions select _i)];
+	private _pos = createVehicle ["FlagSmall_F", (_positions select _i)];
 	if ((_i % 2) == 1) then {
 		createMarker ["_posMarker", _positions select _i, 0];
 		"_posMarker" setMarkerType "hd_flag";
@@ -78,7 +80,7 @@ for [{private _i = 1}, {_i < (_amount + 1)}, {_i = _i + 1}] do {
 	if (_diff == "Easy") then {
 		("Target at " + str (player getDir _pos) + " degrees for " + str (player distance2D _pos) + " meters.") remoteExec ["systemChat", _players];
 	};
-};
+}; // something wrong with {str (player distance2D _pos)} - returns 1e+010 (either player or _pos is objNull)
 
 waitUntil {{(_x distance _pos) < 4} forEach _players || {_x inArea t_trainingIsland} count _players == 0};
 deleteVehicle _pos;

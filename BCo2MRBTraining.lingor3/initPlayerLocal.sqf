@@ -8,6 +8,8 @@ player setVariable ["totalScore",[0,0]]; // shooting range vars
 player setVariable ["loadout", nil];
 player setVariable ["customLoadout", false]; // loadout vars
 
+player setVariable ["playredIntro", false]; // misc vars
+
 //=============ACE Interactions=============\\
 
 //=============Shoothouse Interactions=============\\
@@ -60,82 +62,46 @@ _rangeLeft = ["range_left", "Shooting Range Controls", "", {}, {true}] call ace_
 [sRangeLeftInteract, 0, ["ACE_MainActions"], _rangeLeft, true] call ace_interact_menu_fnc_addActionToObject;
 
 _rangeLeft100 = ["100", "100 Meters", "", {["-left", shootRangeLeftLogic, 100] call Co2T_fnc_shootRange}, {(shootRangeLeftLogic getVariable "distancePosition") != 100}] call ace_interact_menu_fnc_createAction;
-[sRangeLeftInteract, 0, ["ACE_MainActions", "range_left"], _rangeLeft100, true] call ace_interact_menu_fnc_addActionToObject;
-
 _rangeLeft150 = ["150", "150 Meters", "", {["-left", shootRangeLeftLogic, 150] call Co2T_fnc_shootRange}, {(shootRangeLeftLogic getVariable "distancePosition") != 150}] call ace_interact_menu_fnc_createAction;
-[sRangeLeftInteract, 0, ["ACE_MainActions", "range_left"], _rangeLeft150, true] call ace_interact_menu_fnc_addActionToObject;
-
 _rangeLeft200 = ["200", "200 Meters", "", {["-left", shootRangeLeftLogic, 200] call Co2T_fnc_shootRange}, {(shootRangeLeftLogic getVariable "distancePosition") != 200}] call ace_interact_menu_fnc_createAction;
-[sRangeLeftInteract, 0, ["ACE_MainActions", "range_left"], _rangeLeft200, true] call ace_interact_menu_fnc_addActionToObject;
-
 _rangeLeft300 = ["300", "300 Meters", "", {["-left", shootRangeLeftLogic, 300] call Co2T_fnc_shootRange}, {(shootRangeLeftLogic getVariable "distancePosition") != 300}] call ace_interact_menu_fnc_createAction;
-[sRangeLeftInteract, 0, ["ACE_MainActions", "range_left"], _rangeLeft300, true] call ace_interact_menu_fnc_addActionToObject;
-
 _rangeLeft400 = ["400", "400 Meters", "", {["-left", shootRangeLeftLogic, 400] call Co2T_fnc_shootRange}, {(shootRangeLeftLogic getVariable "distancePosition") != 400}] call ace_interact_menu_fnc_createAction;
-[sRangeLeftInteract, 0, ["ACE_MainActions", "range_left"], _rangeLeft400, true] call ace_interact_menu_fnc_addActionToObject;
+{[sRangeLeftInteract, 0, ["ACE_MainActions", "range_left"], _x, true] call ace_interact_menu_fnc_addActionToObject} forEach [_rangeLeft100, _rangeLeft150, _rangeLeft200, _rangeLeft300, _rangeLeft400];
 
 
 _rangeMiddle = ["range_middle", "Shooting Range Controls", "", {}, {true}] call ace_interact_menu_fnc_createAction;
 [sRangeMiddleInteract, 0, ["ACE_MainActions"], _rangeMiddle, true] call ace_interact_menu_fnc_addActionToObject;
 
 _rangeMiddle100 = ["100", "100 Meters", "", {["-middle", shootRangeMiddleLogic, 100] call Co2T_fnc_shootRange}, {(shootRangeMiddleLogic getVariable "distancePosition") != 100}] call ace_interact_menu_fnc_createAction;
-[sRangeMiddleInteract, 0, ["ACE_MainActions", "range_middle"], _rangeMiddle100, true] call ace_interact_menu_fnc_addActionToObject;
-
 _rangeMiddle150 = ["150", "150 Meters", "", {["-middle", shootRangeMiddleLogic, 150] call Co2T_fnc_shootRange}, {(shootRangeMiddleLogic getVariable "distancePosition") != 150}] call ace_interact_menu_fnc_createAction;
-[sRangeMiddleInteract, 0, ["ACE_MainActions", "range_middle"], _rangeMiddle150, true] call ace_interact_menu_fnc_addActionToObject;
-
 _rangeMiddle200 = ["200", "200 Meters", "", {["-middle", shootRangeMiddleLogic, 200] call Co2T_fnc_shootRange}, {(shootRangeMiddleLogic getVariable "distancePosition") != 200}] call ace_interact_menu_fnc_createAction;
-[sRangeMiddleInteract, 0, ["ACE_MainActions", "range_middle"], _rangeMiddle200, true] call ace_interact_menu_fnc_addActionToObject;
-
 _rangeMiddle300 = ["300", "300 Meters", "", {["-middle", shootRangeMiddleLogic, 300] call Co2T_fnc_shootRange}, {(shootRangeMiddleLogic getVariable "distancePosition") != 300}] call ace_interact_menu_fnc_createAction;
-[sRangeMiddleInteract, 0, ["ACE_MainActions", "range_middle"], _rangeMiddle300, true] call ace_interact_menu_fnc_addActionToObject;
-
 _rangeMiddle400 = ["400", "400 Meters", "", {["-middle", shootRangeMiddleLogic, 400] call Co2T_fnc_shootRange}, {(shootRangeMiddleLogic getVariable "distancePosition") != 400}] call ace_interact_menu_fnc_createAction;
-[sRangeMiddleInteract, 0, ["ACE_MainActions", "range_middle"], _rangeMiddle400, true] call ace_interact_menu_fnc_addActionToObject;
+{[sRangeMiddleInteract, 0, ["ACE_MainActions", "range_middle"], _x, true] call ace_interact_menu_fnc_addActionToObject} forEach [_rangeMiddle100, _rangeMiddle150, _rangeMiddle200, _rangeMiddle300, _rangeMiddle400];
 
 
 _rangeRight = ["range_right", "Shooting Range Controls", "", {}, {true}] call ace_interact_menu_fnc_createAction;
 [sRangeRightInteract, 0, ["ACE_MainActions"], _rangeRight, true] call ace_interact_menu_fnc_addActionToObject;
 
 _rangeRight100 = ["100", "100 Meters", "", {["-right", shootRangeRightLogic, 100] call Co2T_fnc_shootRange}, {(shootRangeRightLogic getVariable "distancePosition") != 100}] call ace_interact_menu_fnc_createAction;
-[sRangeRightInteract, 0, ["ACE_MainActions", "range_right"], _rangeRight100, true] call ace_interact_menu_fnc_addActionToObject;
-
 _rangeRight150 = ["150", "150 Meters", "", {["-right", shootRangeRightLogic, 150] call Co2T_fnc_shootRange}, {(shootRangeRightLogic getVariable "distancePosition") != 150}] call ace_interact_menu_fnc_createAction;
-[sRangeRightInteract, 0, ["ACE_MainActions", "range_right"], _rangeRight150, true] call ace_interact_menu_fnc_addActionToObject;
-
 _rangeRight200 = ["200", "200 Meters", "", {["-right", shootRangeRightLogic, 200] call Co2T_fnc_shootRange}, {(shootRangeRightLogic getVariable "distancePosition") != 200}] call ace_interact_menu_fnc_createAction;
-[sRangeRightInteract, 0, ["ACE_MainActions", "range_right"], _rangeRight200, true] call ace_interact_menu_fnc_addActionToObject;
-
 _rangeRight300 = ["300", "300 Meters", "", {["-right", shootRangeRightLogic, 300] call Co2T_fnc_shootRange}, {(shootRangeRightLogic getVariable "distancePosition") != 300}] call ace_interact_menu_fnc_createAction;
-[sRangeRightInteract, 0, ["ACE_MainActions", "range_right"], _rangeRight300, true] call ace_interact_menu_fnc_addActionToObject;
-
 _rangeRight400 = ["400", "400 Meters", "", {["-right", shootRangeRightLogic, 400] call Co2T_fnc_shootRange}, {(shootRangeRightLogic getVariable "distancePosition") != 400}] call ace_interact_menu_fnc_createAction;
-[sRangeRightInteract, 0, ["ACE_MainActions", "range_right"], _rangeRight400, true] call ace_interact_menu_fnc_addActionToObject;
+{[sRangeRightInteract, 0, ["ACE_MainActions", "range_right"], _x, true] call ace_interact_menu_fnc_addActionToObject} forEach [_rangeRight100, _rangeRight150, _rangeRight200, _rangeRight300, _rangeRight400];
 
 
 _rangeLong = ["range_long", "Shooting Range Controls", "", {}, {true}] call ace_interact_menu_fnc_createAction;
 [sRangeLongInteract, 0, ["ACE_MainActions"], _rangeLong, true] call ace_interact_menu_fnc_addActionToObject;
 
 _rangeLong400 = ["400", "400 Meters", "", {["--long", shootRangeLongLogic, 400] call Co2T_fnc_shootRange}, {(shootRangeLongLogic getVariable "distancePosition") != 400}] call ace_interact_menu_fnc_createAction;
-[sRangeLongInteract, 0, ["ACE_MainActions", "range_long"], _rangeLong400, true] call ace_interact_menu_fnc_addActionToObject;
-
 _rangeLong500 = ["500", "500 Meters", "", {["--long", shootRangeLongLogic, 500] call Co2T_fnc_shootRange}, {(shootRangeLongLogic getVariable "distancePosition") != 500}] call ace_interact_menu_fnc_createAction;
-[sRangeLongInteract, 0, ["ACE_MainActions", "range_long"], _rangeLong500, true] call ace_interact_menu_fnc_addActionToObject;
-
 _rangeLong600 = ["600", "600 Meters", "", {["--long", shootRangeLongLogic, 600] call Co2T_fnc_shootRange}, {(shootRangeLongLogic getVariable "distancePosition") != 600}] call ace_interact_menu_fnc_createAction;
-[sRangeLongInteract, 0, ["ACE_MainActions", "range_long"], _rangeLong600, true] call ace_interact_menu_fnc_addActionToObject;
-
 _rangeLong700 = ["700", "700 Meters", "", {["--long", shootRangeLongLogic, 700] call Co2T_fnc_shootRange}, {(shootRangeLongLogic getVariable "distancePosition") != 700}] call ace_interact_menu_fnc_createAction;
-[sRangeLongInteract, 0, ["ACE_MainActions", "range_long"], _rangeLong700, true] call ace_interact_menu_fnc_addActionToObject;
-
 _rangeLong800 = ["800", "800 Meters", "", {["--long", shootRangeLongLogic, 800] call Co2T_fnc_shootRange}, {(shootRangeLongLogic getVariable "distancePosition") != 800}] call ace_interact_menu_fnc_createAction;
-[sRangeLongInteract, 0, ["ACE_MainActions", "range_long"], _rangeLong800, true] call ace_interact_menu_fnc_addActionToObject;
-
 _rangeLong900 = ["900", "900 Meters", "", {["--long", shootRangeLongLogic, 900] call Co2T_fnc_shootRange}, {(shootRangeLongLogic getVariable "distancePosition") != 900}] call ace_interact_menu_fnc_createAction;
-[sRangeLongInteract, 0, ["ACE_MainActions", "range_long"], _rangeLong900, true] call ace_interact_menu_fnc_addActionToObject;
-
 _rangeLong1000 = ["1000", "1000 Meters", "", {["--long", shootRangeLongLogic, 1000] call Co2T_fnc_shootRange}, {(shootRangeLongLogic getVariable "distancePosition") != 1000}] call ace_interact_menu_fnc_createAction;
-[sRangeLongInteract, 0, ["ACE_MainActions", "range_long"], _rangeLong1000, true] call ace_interact_menu_fnc_addActionToObject;
+{[sRangeLongInteract, 0, ["ACE_MainActions", "range_long"], _x, true] call ace_interact_menu_fnc_addActionToObject} forEach [_rangeLong400, _rangeLong500, _rangeLong600, _rangeLong700, _rangeLong800, _rangeLong900, _rangeLong1000];
 
 _rangeLongHide = ["range_hide", "Hide Targets", "", {{hideObjectGlobal _x} forEach ((getMissionLayerEntities "--long") select 0)}, {!(isObjectHidden rangeTarget13)}] call ace_interact_menu_fnc_createAction;
 [sRangeLongInteract, 0, ["ACE_MainActions"], _rangeLongHide, true] call ace_interact_menu_fnc_addActionToObject;
@@ -183,17 +149,17 @@ _ATDisableSmoke = ["AT_disableSmoke", "Disable Smoke", "", {MOS_ATRangeInteract 
 _ATDistance = ["AT_distance", "Max Target Distance", "", {}, {true}] call ace_interact_menu_fnc_createAction;
 [MOS_ATRangeInteract, 0, ["ACE_MainActions"], _ATDistance, true] call ace_interact_menu_fnc_addActionToObject;
 
-_ATDistance1500 = ["1500", "1500 Meters", "", {ATLandDistance = 1500}, {ATLandDistance != 1500}] call ace_interact_menu_fnc_createAction;
-_ATDistance1250 = ["1250", "1250 Meters", "", {ATLandDistance = 1250}, {ATLandDistance != 1250}] call ace_interact_menu_fnc_createAction;
-_ATDistance1000 = ["1000", "1000 Meters", "", {ATLandDistance = 1000}, {ATLandDistance != 1000}] call ace_interact_menu_fnc_createAction;
-_ATDistance900 = ["900", "900 Meters", "", {ATLandDistance = 900}, {ATLandDistance != 900}] call ace_interact_menu_fnc_createAction;
-_ATDistance800 = ["800", "800 Meters", "", {ATLandDistance = 800}, {ATLandDistance != 800}] call ace_interact_menu_fnc_createAction;
-_ATDistance700 = ["700", "700 Meters", "", {ATLandDistance = 700}, {ATLandDistance != 700}] call ace_interact_menu_fnc_createAction;
-_ATDistance600 = ["600", "600 Meters", "", {ATLandDistance = 600}, {ATLandDistance != 600}] call ace_interact_menu_fnc_createAction;
-_ATDistance500 = ["500", "500 Meters", "", {ATLandDistance = 500}, {ATLandDistance != 500}] call ace_interact_menu_fnc_createAction;
-_ATDistance400 = ["400", "400 Meters", "", {ATLandDistance = 400}, {ATLandDistance != 400}] call ace_interact_menu_fnc_createAction;
-_ATDistance300 = ["300", "300 Meters", "", {ATLandDistance = 300}, {ATLandDistance != 300}] call ace_interact_menu_fnc_createAction;
-_ATDistance200 = ["200", "200 Meters", "", {ATLandDistance = 200}, {ATLandDistance != 200}] call ace_interact_menu_fnc_createAction;
+_ATDistance1500 = ["1500", "1500 Meters", "", {MOS_ATRangeInteract setVariable ["maxDistance", 1500, true]}, {(MOS_ATRangeInteract getVariable "maxDistance") != 1500}] call ace_interact_menu_fnc_createAction;
+_ATDistance1250 = ["1250", "1250 Meters", "", {MOS_ATRangeInteract setVariable ["maxDistance", 1250, true]}, {(MOS_ATRangeInteract getVariable "maxDistance") != 1250}] call ace_interact_menu_fnc_createAction;
+_ATDistance1000 = ["1000", "1000 Meters", "", {MOS_ATRangeInteract setVariable ["maxDistance", 1000, true]}, {(MOS_ATRangeInteract getVariable "maxDistance") != 1000}] call ace_interact_menu_fnc_createAction;
+_ATDistance900 = ["900", "900 Meters", "", {MOS_ATRangeInteract setVariable ["maxDistance", 900, true]}, {(MOS_ATRangeInteract getVariable "maxDistance") != 900}] call ace_interact_menu_fnc_createAction;
+_ATDistance800 = ["800", "800 Meters", "", {MOS_ATRangeInteract setVariable ["maxDistance", 800, true]}, {(MOS_ATRangeInteract getVariable "maxDistance") != 800}] call ace_interact_menu_fnc_createAction;
+_ATDistance700 = ["700", "700 Meters", "", {MOS_ATRangeInteract setVariable ["maxDistance", 700, true]}, {(MOS_ATRangeInteract getVariable "maxDistance") != 700}] call ace_interact_menu_fnc_createAction;
+_ATDistance600 = ["600", "600 Meters", "", {MOS_ATRangeInteract setVariable ["maxDistance", 600, true]}, {(MOS_ATRangeInteract getVariable "maxDistance") != 600}] call ace_interact_menu_fnc_createAction;
+_ATDistance500 = ["500", "500 Meters", "", {MOS_ATRangeInteract setVariable ["maxDistance", 500, true]}, {(MOS_ATRangeInteract getVariable "maxDistance") != 500}] call ace_interact_menu_fnc_createAction;
+_ATDistance400 = ["400", "400 Meters", "", {MOS_ATRangeInteract setVariable ["maxDistance", 400, true]}, {(MOS_ATRangeInteract getVariable "maxDistance") != 400}] call ace_interact_menu_fnc_createAction;
+_ATDistance300 = ["300", "300 Meters", "", {MOS_ATRangeInteract setVariable ["maxDistance", 300, true]}, {(MOS_ATRangeInteract getVariable "maxDistance") != 300}] call ace_interact_menu_fnc_createAction;
+_ATDistance200 = ["200", "200 Meters", "", {MOS_ATRangeInteract setVariable ["maxDistance", 200, true]}, {(MOS_ATRangeInteract getVariable "maxDistance") != 200}] call ace_interact_menu_fnc_createAction;
 {[MOS_ATRangeInteract, 0, ["ACE_MainActions", "AT_distance"], _x, true] call ace_interact_menu_fnc_addActionToObject;} forEach [_ATDistance200, _ATDistance300, _ATDistance400, _ATDistance500, _ATDistance600, _ATDistance700, _ATDistance800, _ATDistance900, _ATDistance1000, _ATDistance1250, _ATDistance1500];
 
 //=============Vehicle Pools=============\\
@@ -240,3 +206,5 @@ player createDiarySubject ["areaExp", "Areas Explanation"];
 player createDiaryRecord ["Diary", ["Training Map", "Welcome to the Bravo Company, 2nd Marine Raider Battalion training map!"]];
 
 player createDiaryRecord ["areaExp", ["WIP", "This section is work in progress..."]];
+
+systemChat "Training Map Version 0.2.6 Initialized Successfully.";

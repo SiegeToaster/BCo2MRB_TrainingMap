@@ -104,3 +104,15 @@ Training map for the Bravo Company, 2nd Marine Raider Battalion ArmA 3 Unit.
 - Fixed locality bugs in rogaining and mosATLand functions
 #### Version 0.2.5.1
 - Added multi-level support for shoothouses (fix to shoot house 3 and The Consulate)
+
+### Version 0.2.6
+- Added repair, refuel, rearm trucks to vehicle spawners (per Wristy's request)
+- Added repair, refuel, rearm trucks to helipad area
+- Removed 2 northern-most helicopters on helipad (per Wristy's request)
+- added intro cinematic
+- all shoothouse walls converted to Military Base Wall/Sandbags where possible
+- added fail/finished/cancel messages to shoothouses
+- Compressed ace actions for shooting ranges
+- Added a version log after loading is complete
+- Added respawn, arsenal, and x1 HH-60G/M Pavehawk to the USS Khe Sahn (LHD) and USS Liberty (Destroyer)
+- Added cargo ship shoothouse

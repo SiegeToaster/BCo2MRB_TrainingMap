@@ -21,8 +21,8 @@ Training map for the Bravo Company, 2nd Marine Raider Battalion ArmA 3 Unit.
 - [x] Firing Range (100-400m)
 - [x] Firing Range (400m+)
 - [x] Briefing Area
-- [ ] Maritime Interdiction Scenario *
-- [x] CQC Shoothouses *
+- [x] Maritime Interdiction Scenario
+- [x] CQC Shoothouses
   - [x] Shoothouse 1
   - [x] Shoothouse 2
   - [x] Shoothouse 3

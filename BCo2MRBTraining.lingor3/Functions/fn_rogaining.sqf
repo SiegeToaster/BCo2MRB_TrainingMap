@@ -50,7 +50,7 @@ createMarker ["_posMarker", _positions select 0, 0];
 "_posMarker" setMarkerText "Position 0";
 waitUntil {{_x inArea t_trainingIsland} count _players == (count _players)};
 private _startTime = time;
-
+str _players remoteExec ["systemChat", 0];
 for [{private _i = 1}, {_i < (_amount + 1)}, {_i = _i + 1}] do {
 	// str (({(_x distance _pos) < 4} count _players) > 0) remoteExec ["systemChat", 0];
 	waitUntil {({(_x distance _pos) < 4} count _players) > 0 || {_x inArea t_trainingIsland} count _players == 0};
@@ -59,26 +59,28 @@ for [{private _i = 1}, {_i < (_amount + 1)}, {_i = _i + 1}] do {
 	["markerReached", []] remoteExecCall ["BIS_fnc_showNotification", _players];
 	deleteVehicle _pos;
 	deleteMarker "_posMarker";
-	private _pos = createVehicle ["FlagSmall_F", (_positions select _i)];
+	_pos = createVehicle ["FlagSmall_F", (_positions select _i)];
 	if ((_i % 2) == 1) then {
 		createMarker ["_posMarker", _positions select _i, 0];
 		"_posMarker" setMarkerType "hd_flag";
 		"_posMarker" setMarkerColor "colorIndependent";
 		"_posMarker" setMarkerText "Position " + str _i;
 		switch (_diff) do {
-			case "Normal": {("Target marked on map " + str (player distance2D _pos) + " meters away.") remoteExec ["systemChat", _players]};
-			case "Hard": {"Target marked on map." remoteExec ["systemChat", _players]};
-			default {};
+			case "Normal": {{systemChat ("Target marked on map " + str (player distance2D _pos) + " meters away.")} remoteExec ["call", _players]};
+			case "Hard": {("Target marked on map.") remoteExec ["systemChat", _players]};
+			default {}; // these don't show
 		};
 	} else {
 		if (_diff == "Hard") then {
-			"Target at " + str (player getDir _pos) + " degrees." remoteExec ["systemChat", _players];
+			{systemChat ("Target at " + str (player getDir _pos) + " degrees.")} remoteExec ["call", _players];
 		} else {
-			("Target at "+ str (player getDir _pos) + " degrees for " + str (player distance2D _pos) + " meters.") remoteExec ["systemChat", _players];
+			if (_diff == "Normal") then {
+				{systemChat ("Target at "+ str (player getDir _pos) + " degrees for " + str (player distance2D _pos) + " meters.")} remoteExec ["call", _players];
+			};
 		};
 	};
 	if (_diff == "Easy") then {
-		("Target at " + str (player getDir _pos) + " degrees for " + str (player distance2D _pos) + " meters.") remoteExec ["systemChat", _players];
+		{systemChat ("Target at " + str (player getDir _pos) + " degrees for " + str (player) distance2D _pos) + " meters.")} remoteExec ["call", _players];
 	};
 }; // something wrong with {str (player distance2D _pos)} - returns 1e+010 (either player or _pos is objNull)
 

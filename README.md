@@ -29,6 +29,7 @@ Training map for the Bravo Company, 2nd Marine Raider Battalion ArmA 3 Unit.
   - [x] The Pit
   - [x] Consulate
 - [x] Land Navigation Course (Rogaining)
+- [ ] Scoreboards for Shoothouse and Rogaining minigames
 
 ###### More * = higher priority
 
@@ -116,3 +117,9 @@ Training map for the Bravo Company, 2nd Marine Raider Battalion ArmA 3 Unit.
 - Added a version log after loading is complete
 - Added respawn, arsenal, and x1 HH-60G/M Pavehawk to the USS Khe Sahn (LHD) and USS Liberty (Destroyer)
 - Added cargo ship shoothouse
+
+### Version 0.3.0
+- rogaining.sqf locality fixes
+- rogaining minigame removes all items (gives them back at the end).
+- fixed version log displaying before player could see
+- added scoreboards (still WiP)

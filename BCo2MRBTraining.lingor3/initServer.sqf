@@ -1,5 +1,12 @@
 enemyGroup = createGroup east; // for enemies in shoothouse.
 
+//=============Hash Map Setup=============\\
+shootHouseScoreboard = createHashMap;
+rogainingScoreboard = createHashMap;
+scoreboardReadyToReceive = true;
+
+{publicVariable _x} forEach ["shootHouseScoreboard", "rogainingScoreboard", "scoreboardReadyToReceive"];
+
 //=============Ace Action Variables=============\\
 shootHouseSpectatorInterfaces = [spectateInterface, pitNorthSpectator, pitSouthSpectator];
 // deleted vars ^ = sh1EastSpectator, sh1WestSpectator, sh2EastSpectator, sh2WestSpectator
@@ -24,6 +31,7 @@ sh3TurretPos = [];
 pitPos = [];
 consulatePos = [];
 cargoShipTarget = [];
+arsenal = [];
 {
 	private _i = 1;
 	private _array = missionNamespace getVariable _x;
@@ -33,11 +41,12 @@ cargoShipTarget = [];
 		_array pushBack _unit;
 		_i = _i + 1;
 	};
-} forEach ["sh1Pos", "sh2Pos", "sh3Pos", "sh3TurretPos", "pitPos", "consulatePos", "cargoShipTarget"]; // finds targets for shoothouses and puts them into the proper array
+} forEach ["sh1Pos", "sh2Pos", "sh3Pos", "sh3TurretPos", "pitPos", "consulatePos", "cargoShipTarget", "arsenal"]; // finds targets for shoothouses and arsenals, then puts them into the proper array
 shootingRangeTargets = [rangeTarget1, rangeTarget2, rangeTarget3, rangeTarget4, rangeTarget5, rangeTarget6, rangeTarget7, rangeTarget8, rangeTarget9, rangeTarget10, rangeTarget11, rangeTarget12, rangeTarget13, rangeTarget14, rangeTarget15, rangeTarget16];
 
-{publicVariable _x} forEach ["scoreHashMap", "shootHouseSpectatorInterfaces", "shootHousePlayerInterfaces", "MOSTrainingInterfaces", "diff", "amount", "ATLandDistance", "shootHouseMode", "shootHouseDifficulty", "landVehicles", "seaVehicles", "smallAviationVehicles", "mediumAviationVehicles", "shootingRangeTargets", "sh1Pos", "sh2Pos", "sh3Pos", "sh3TurretPos"];
+{publicVariable _x} forEach ["scoreHashMap", "shootHouseSpectatorInterfaces", "shootHousePlayerInterfaces", "MOSTrainingInterfaces", "diff", "amount", "ATLandDistance", "shootHouseMode", "shootHouseDifficulty", "landVehicles", "seaVehicles", "smallAviationVehicles", "mediumAviationVehicles", "shootingRangeTargets", "sh1Pos", "sh2Pos", "sh3Pos", "sh3TurretPos", "arsenal"];
 
+//=============Shoot House Parameters=============\\
 pitSpawn setVariable ["triggerName", t_Pit, true];
 pitSpawn setVariable ["spawnPoints", pitPos, true];
 sh1Spawn setVariable ["triggerName", t_SH1, true];
@@ -61,6 +70,8 @@ MOS_ATRangeInteract setVariable ["enableSmoke", true, true];
 MOS_ATRangeInteract setVariable ["maxDistance", 1500, true];
 
 {_x setVariable ["inProgress", false, true]} forEach [pitSpawn, sh1Spawn, sh2Spawn, sh3Spawn, consulateSpawn, cargoShip, srt_rogain];
+
+//=============Shooting Range=============\\
 {
 	_x addEventHandler ["HitPart", {
 		private _shooter = (_this select 0 select 1);

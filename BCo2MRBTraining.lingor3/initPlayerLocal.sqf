@@ -16,6 +16,20 @@ player setVariable ["playredIntro", false]; // misc vars
 _start = ["start_root", "Start Shoot Houses", "", {call Co2T_fnc_shootHouseDialogCreate}, {true}] call ace_interact_menu_fnc_createAction;
 [startInterface, 0, ["ACE_MainActions"], _start, true] call ace_interact_menu_fnc_addActionToObject;
 
+_personalShootHouseScore = ["shootHouseScore", "Display Personal Score", "", {
+	private _scores = shootHouseScoreboard getOrDefault [getPlayerUID _player, [0, 0, 0, 0]];
+	private _playerName = getPlayerUID _player call BIS_fnc_getUnitByUid;
+	if (isNull _playerName) then {
+		_playerName = "Unkown player"
+	} else {
+		_playerName = name _playerName;
+	};
+	shootHouseScoreString = (_playerName + " has completed " + (str (_scores select 2)) + " out of " + (str (_scores select 3)) + " shoot house games with an average time of " + ((_scores select 1) call Co2T_fnc_timeConvert) + ".  Their lowest time is " + ((_scores select 0) call Co2T_fnc_timeConvert));
+	publicVariable "shootHouseScoreString";
+	shootHouseScoreString remoteExec ["systemChat"];
+}, {true}] call ace_interact_menu_fnc_createAction;
+[startInterface, 0, ["ACE_MainActions"], _personalShootHouseScore, true] call ace_interact_menu_fnc_addActionToObject;
+
 _return = ["return", "Return to Base", "", {_player setPosATL (getPosATL startArea); [objNull, _player] call ace_medical_treatment_fnc_fullHeal;}, {true}] call ace_interact_menu_fnc_createAction;
 {[_x, 0, ["ACE_MainActions"], _return, true] call ace_interact_menu_fnc_addActionToObject;} forEach shootHousePlayerInterfaces;
 
@@ -56,6 +70,20 @@ _spectateReturn = ["spectate_return", "Return to Base", "", {_player setCaptive 
 //=============Rogaining Action=============\\
 _rogain = ["rogain", "Start Rogaining", "", {call Co2T_fnc_rogaineDialogCreate}, {true}] call ace_interact_menu_fnc_createAction;
 [rogaineInterface, 0, ["ACE_MainActions"], _rogain, true] call ace_interact_menu_fnc_addActionToObject;
+
+_personalRogaineScore = ["rogainScore", "Display Personal Score", "", {
+	private _scores = rogainingScoreboard getOrDefault [getPlayerUID _player, [0, 0, 0]];
+	private _playerName = getPlayerUID _player call BIS_fnc_getUnitByUid;
+	if (isNull _playerName) then {
+		_playerName = "Unkown player"
+	} else {
+		_playerName = name _playerName;
+	};
+	rogaineScoreString = (_playerName + " has completed " + (str (_scores select 2)) + " rogaine games with an average time of " + ((_scores select 1) call Co2T_fnc_timeConvert) + ".  Their lowest time is " + ((_scores select 0) call Co2T_fnc_timeConvert));
+	publicVariable "rogaineScoreString";
+	rogaineScoreString remoteExec ["systemChat"];
+}, {true}] call ace_interact_menu_fnc_createAction;
+[rogaineInterface, 0, ["ACE_MainActions"], _personalRogaineScore, true] call ace_interact_menu_fnc_addActionToObject;
 
 //=============100-400 Shooting Range Actions=============\\
 _rangeLeft = ["range_left", "Shooting Range Controls", "", {}, {true}] call ace_interact_menu_fnc_createAction;
@@ -175,7 +203,7 @@ _arsenalSaveLoadout = ["arsenal_saveLoadout", "Save Loadout", "", {
 	_player setVariable ["customLoadout", true];
 	[_player] remoteExec ["Co2T_fnc_loadoutCheck", _player];
 }, {true}] call ace_interact_menu_fnc_createAction;
-{[_x, 0, ["ACE_MainActions"], _arsenalSaveLoadout, true] call ace_interact_menu_fnc_addActionToObject;} forEach [arsenal1, arsenal2, arsenal3, arsenal4];
+{[_x, 0, ["ACE_MainActions"], _arsenalSaveLoadout, true] call ace_interact_menu_fnc_addActionToObject;} forEach arsenal;
 
 _arsenalFetchLoadout = ["arsenal_fetchLoadout", "Retrieve Loadout", "", {
 	private _loadout = _player getVariable ["loadout", getUnitLoadout _player];
@@ -192,13 +220,13 @@ _arsenalFetchLoadout = ["arsenal_fetchLoadout", "Retrieve Loadout", "", {
 	private _loadout = _player getVariable ["loadout", nil];
 	!isNil "_loadout"
 }] call ace_interact_menu_fnc_createAction;
-{[_x, 0, ["ACE_MainActions"], _arsenalFetchLoadout, true] call ace_interact_menu_fnc_addActionToObject;} forEach [arsenal1, arsenal2, arsenal3, arsenal4];
+{[_x, 0, ["ACE_MainActions"], _arsenalFetchLoadout, true] call ace_interact_menu_fnc_addActionToObject;} forEach arsenal;
 
 _arsenalDeleteLoadout = ["arsenal_deleteLoadout", "Delete Saved Loadout", "", {
 	_player setVariable ["loadout", nil];
 	_player setVariable ["customLoadout", false];
 }, {true}] call ace_interact_menu_fnc_createAction;
-{[_x, 0, ["ACE_MainActions"], _arsenalDeleteLoadout, true] call ace_interact_menu_fnc_addActionToObject;} forEach [arsenal1, arsenal2, arsenal3, arsenal4];
+{[_x, 0, ["ACE_MainActions"], _arsenalDeleteLoadout, true] call ace_interact_menu_fnc_addActionToObject;} forEach arsenal;
 
 //=============Briefing (how to use)=============\\
 player createDiarySubject ["areaExp", "Areas Explanation"];
@@ -207,4 +235,21 @@ player createDiaryRecord ["Diary", ["Training Map", "Welcome to the Bravo Compan
 
 player createDiaryRecord ["areaExp", ["WIP", "This section is work in progress..."]];
 
-systemChat "Training Map Version 0.2.6 Initialized Successfully.";
+//=============Hash Table Setup=============\\
+waitUntil {{!isNil _x} forEach ["shootHouseScoreboard", "rogainingScoreboard"]};
+_shoothouseStatus = profileNamespace getVariable ["shootHouseStatus", [0, 0, 0, 0]];
+_rogainingStatus = profileNamespace getVariable ["rogainingStatus", [0, 0, 0]]; 
+shootHouseScoreboard set [getPlayerUID player, _shoothouseStatus]; 
+rogainingScoreboard set [getPlayerUID player, _rogainingStatus]; 
+{publicVariable _x} forEach ["shootHouseScoreboard", "rogainingScoreboard"]; // this is most probably going to break because of requests being put in at the same time
+
+waitUntil {getClientStateNumber == 9};
+systemChat "Training Map Version 0.3.0 Initialized Successfully.";
+
+[] spawn {
+	while {true} do {
+		waitUntil {player inArea t_arsenalCheck};
+		waitUntil {!(player inArea t_arsenalCheck)};
+		[player] remoteExec ["Co2T_fnc_loadoutCheck", player];
+	};
+};

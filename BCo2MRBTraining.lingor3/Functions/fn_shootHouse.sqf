@@ -98,6 +98,21 @@ waitUntil {({alive _x} count _tgts == (count _tgts)) && (if (typeName _trigger =
 	};
 };
 
+[_players, _trigger, _tgts] spawn {
+	params ["_players", "_trigger", "_tgts"];
+
+	while {true} do {
+		waitUntil {(if (typeName _trigger == "ARRAY") then {({(getPosATL _x) inPolygon _trigger} count _players) > 0} else {({_x inArea _trigger} count _players) > 0}) || ({alive _x} count _tgts == 0 || (if (typeName _trigger == "ARRAY") then {{(getPosATL _x) inPolygon _trigger} count _players == 0} else {{_x inArea _trigger} count _players == 0}) || {alive _x} count _players == 0)};
+		if ({alive _x} count _tgts == 0 || (if (typeName _trigger == "ARRAY") then {{(getPosATL _x) inPolygon _trigger} count _players == 0} else {{_x inArea _trigger} count _players == 0}) || {alive _x} count _players == 0) exitWith {};
+
+		{
+			if ((if (typeName _trigger == "ARRAY") then {(getPosATL _x) inPolygon _trigger} else {_x inArea _trigger})) then {
+				_players = _players - [_x];
+			};
+		} forEach _players;
+	};
+};
+
 waitUntil {{alive _x} count _tgts == 0 || (if (typeName _trigger == "ARRAY") then {{(getPosATL _x) inPolygon _trigger} count _players == 0} else {{_x inArea _trigger} count _players == 0}) || {alive _x} count _players == 0};
 {
 	private _bool = if (typeName _trigger == "ARRAY") then {(getPosATL _x) inPolygon _trigger} else {_x inArea _trigger};
@@ -108,7 +123,6 @@ waitUntil {{alive _x} count _tgts == 0 || (if (typeName _trigger == "ARRAY") the
 		deleteVehicle _x;
 	};
 } forEach _players;
-{deleteVehicle _x} forEach _tgts;
 
 if ({alive _x} count _tgts == 0) then {
 	(str _location + " finished in " + ([time - _startTime] call Co2T_fnc_timeConvert) + " on " + toLower _difficulty + " difficulty.") remoteExec ["systemChat", 0];
@@ -120,3 +134,26 @@ if ({alive _x} count _tgts == 0) then {
 	};
 };
 _location setVariable ["inProgress", false, true];
+
+if (!(({alive _x} count _tgts == 0) || ({alive _x} count _players == 0)) || (_difficulty == "easy") || (_responsive == "this disableAI 'all';")) exitWith {};
+{
+	private _playerData = shootHouseScoreboard getOrDefault [getPlayerUID _x, [0, 0, 0, 0]];
+	_playerData set [3, ((_playerData select 3) + 1)];
+	if ({alive _x} count _tgts == 0) then {
+		_playerData set [2, ((_playerData select 2) + 1)];
+		if ((_playerData select 1) == 0) then {
+			_playerData set [1, time - _startTime];
+		} else {
+			_playerData set [1, ((((_playerData select 2) * (_playerData select 1)) + (time - _startTime)) / ((_playerData select 2) + 1))]; // slightly adapted combined mean formula
+		};
+		if (((time - _startTime) < (_playerData select 1)) || ((_playerData select 1) == 0)) then {
+			_playerData set [0, (time - _startTime)];
+		};
+	};
+	shootHouseScoreboard set [getPlayerUID _x, _playerData];
+	publicVariable "shootHouseScoreboard";
+	"Shoot House score saved successfully." remoteExec ["systemChat", _x];
+	{profileNamespace setVariable ["shootHouseStatus", (shootHouseScoreboard get getPlayerUID player)]; saveProfileNamespace;} remoteExec ["call", _x];
+} forEach _players;
+
+{deleteVehicle _x} forEach _tgts;

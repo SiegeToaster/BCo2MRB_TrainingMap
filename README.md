@@ -123,3 +123,6 @@ Training map for the Bravo Company, 2nd Marine Raider Battalion ArmA 3 Unit.
 - rogaining minigame removes all items (gives them back at the end).
 - fixed version log displaying before player could see
 - added scoreboards (still WiP)
+
+### Version 0.3.1
+- removed dependency issues with new modpack version (v3)

@@ -1,6 +1,8 @@
 # Bravo Company, 2nd Marine Raider Battalion Training Map
 Training map for the Bravo Company, 2nd Marine Raider Battalion ArmA 3 Unit.
 
+**!!!DISCONTINUED!!!**
+
 ## Features
 
 #### Items with checked boxes are completed.
